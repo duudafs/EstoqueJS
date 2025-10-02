@@ -1,0 +1,466 @@
+body {
+  font-family: Arial;
+}
+
+
+.tab {
+  display: flex;
+  justify-content: left;
+  gap: 10px;
+  margin: 20px 0;
+
+
+}
+
+
+.tab button {
+  margin-right: 12px;
+  color: rgb(255, 255, 255);
+  float: left;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 10px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+  background-color: #ccc;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #0076fd;
+}
+
+.tab button.active {
+  background-color: #0076fd;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: none;
+  border-top: none;
+}
+
+.card {
+  width: 1200px;
+  height: 790px;
+
+
+}
+
+.table {
+  width: 100%;
+  height: 420px;
+  border-collapse: collapse;
+
+}
+
+tbody tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+
+th,
+td {
+  text-align: center;
+  padding: 40px 50px;
+
+}
+
+td:nth-child(8),
+td:nth-child(9) {
+  max-width: 90px;
+  white-space: normal;
+  word-wrap: break-word;
+
+}
+
+.edit-btn {
+  margin-right: 2px;
+  margin-left: 8px;
+  background-color: rgb(154, 219, 70);
+  border-radius: 5px;
+  width: 40px;
+  height: 35px;
+  border: none;
+}
+
+.delete-btn {
+  border-radius: 5px;
+  width: 40px;
+  height: 35px;
+  border: none;
+  background-color: rgb(223, 36, 36);
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-start;
+  padding: 18px 20px;
+  padding-bottom: 30px;
+
+}
+
+.buttonProdutos-container {
+  display: flex;
+  justify-content: flex-start;
+  padding: 8px 17px;
+  padding-bottom: 25px;
+}
+
+.btn-plus {
+  border-radius: 6px;
+  border: none;
+  background-color: rgb(133, 192, 56);
+  color: rgb(0, 0, 0)
+}
+
+#meuCard {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(184, 174, 174, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+#CardEdit {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(184, 174, 174, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+
+
+#CardEditUsuarioss {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(184, 174, 174, 0.5); /* sem repetir width */
+  display: flex;   /* usar flex para centralizar */
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  display: none;   /* começar escondido */
+}
+
+/* Card interno */
+#CardEditUsuarioss .cardUser-new {
+  background-color: #fff; /* cor do card */
+  width: 600px;           /* largura desejada */
+  height: 400px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  text-align: center;
+  
+} 
+
+
+
+.card-new {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  width: 760px;
+  height: 625px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+
+
+input[type=text] {
+  font-size: 0.875rem;
+  /* text-sm */
+  width: 100%;
+  /* w-full */
+  padding: 0.5rem 1rem;
+  /* py-2 px-4 */
+  border: 1px solid #d1d5db;
+  /* border-gray-300 */
+  border-radius: 0.5rem;
+  /* rounded-lg */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  /* shadow-sm */
+  background-color: #f3f4f6;
+  /* bg-gray-100 */
+  transition: all 0.3s ease-in-out;
+}
+
+input[type=number] {
+  font-size: 0.875rem;
+  /* text-sm */
+  width: 100%;
+  /* w-full */
+  padding: 0.5rem 1rem;
+  /* py-2 px-4 */
+  border: 1px solid #d1d5db;
+  /* border-gray-300 */
+  border-radius: 0.5rem;
+  /* rounded-lg */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  /* shadow-sm */
+  background-color: #f3f4f6;
+  /* bg-gray-100 */
+  transition: all 0.3s ease-in-out;
+}
+
+input:focus {
+  outline: 2px solid #93c5fd;
+  /* focus:outline-blue-300 */
+  transform: translateY(-0.25rem);
+  /* focus:-translate-y-1 */
+
+}
+
+input:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* hover:shadow-lg */
+  border-color: #93c5fd;
+  /* hover:border-blue-300 */
+}
+
+
+.save {
+  margin-top: 100px;
+  margin-left: 70px;
+  border-radius: 5px;
+  background-color: rgb(118, 201, 64);
+  border: none;
+
+}
+
+#busca {
+  border-radius: 20px;
+}
+
+#paginacao button {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0;
+  text-align: center;
+  display: inline-block;
+  /* necessário para aplicar altura/largura em <a> */
+  margin: 0 4px;
+  text-decoration: none;
+  color: #000;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+#paginacao button.is-active {
+  background-color: #1e81f1;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+}
+
+#paginacaoProdutos button {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0;
+  text-align: center;
+  display: inline-block;
+  /* necessário para aplicar altura/largura em <a> */
+  margin: 0 4px;
+  text-decoration: none;
+  color: #000;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+#paginacaoProdutos button.is-active {
+  background-color: #1e81f1;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+}
+
+#paginacaoUsuarioss button {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0;
+  text-align: center;
+  display: inline-block;
+  /* necessário para aplicar altura/largura em <a> */
+  margin: 0 4px;
+  text-decoration: none;
+  color: #000;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+#paginacaoUsuarioss button.is-active {
+  background-color: #1e81f1;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.header-localizacao {
+  display: flex;            /* coloca os elementos na mesma linha */
+  align-items: center;      /* centraliza verticalmente */
+  justify-content: center;; /* título à esquerda, botão à direita */
+  margin-bottom: 10px;      /* espaçamento abaixo */
+}
+
+.tituloLoc {
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 50px;
+
+}
+
+.btn-loc {
+  border-radius: 6px;
+  border: none;
+  background-color: rgb(133, 192, 56);
+  color: rgb(0, 0, 0);
+             /* tira do fluxo normal */
+ 
+  
+}
+
+.input-loc {
+  width: 100%;
+  padding: 5px;
+  font-size: 14px;
+}
+
+
+
+
+.tituloUser {
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+
+}
+
+#CardUser {
+  margin-top: 70px;
+  justify-content: center;
+  justify-items: center;
+  width: 500px;
+  height: 600px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(156, 156, 156, 0.07) 0px 1px 2px, rgba(238, 231, 231, 0.07) 0px 2px 4px, rgba(133, 133, 133, 0.07) 0px 4px 8px, rgba(128, 127, 127, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+  border-radius: 1px;
+}
+
+#CardRegistro {
+  margin-top: 70px;
+  justify-content: center;
+  justify-items: center;
+  width: 500px;
+  height: 600px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(156, 156, 156, 0.07) 0px 1px 2px, rgba(238, 231, 231, 0.07) 0px 2px 4px, rgba(133, 133, 133, 0.07) 0px 4px 8px, rgba(128, 127, 127, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+  border-radius: 1px;
+}
+
+
+
+.input-container, 
+.input-container input,
+.inputIcon {
+  box-sizing: border-box;
+}
+
+.input-container input,
+#senha, #senha_login, #usuario_id, #usuario_id_login{
+  padding-left: 35px; /* espaço pro ícone */
+
+  border: none;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* ícone não atrapalha clique */
+}
+
+.form-control {
+  padding-left: 35px; /* espaço pro ícone */
+  font-weight:bold;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  height: 42px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #0d6efd; /* borda azul ao focar */
+  box-shadow: 0 4px 10px rgba(13,110,253,0.25); /* sombra azul ao focar */
+  outline: none;
+}
+
+.form-control::placeholder{
+  color: #a8aaac;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #58bc82;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: #45a56b;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(88, 188, 130, 0.3);
+}
+
+.btn-novo-user{
+  background-color: transparent;
+  border:none;
+  font-weight: bold;
+  color: #58bc82;
+  
+ 
+}
+.semConta{
+  color: #8e9092;
+  text-align: center;
+}
+
+.cadastroTitulo{
+  font-weight: bold;
+  padding-top: 40px;
+  color: #8e9092;
+}
+
+
+

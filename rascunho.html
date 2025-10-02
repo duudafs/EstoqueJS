@@ -1,0 +1,127 @@
+
+<!-- <div id="Cadastro" class="tabcontent" style="justify-items: center;">
+    <h3 class="tituloUser">Cadastro de Usuários</h3>
+
+
+    <div id="CardUser">
+        <div style="padding-top: 25px;"><img width="96" height="96"
+                src="https://img.icons8.com/material-outlined/96/737373/client-management.png"
+                alt="user-male-circle" />
+        </div>
+
+
+        <form class="form" id="formUsuarioLogin" onsubmit="LogarUsuario(event)">
+           
+            <div class="input-container" style="margin-top: 40px; position: relative;">
+                <input class="form-control" type="text" id="nome_usuario_login" name="nome_usuario_login"
+                    placeholder="Username" required>
+                
+                <svg viewBox="0 0 16 16" fill="#a6a4a4" height="16" width="16"
+                    xmlns="http://www.w3.org/2000/svg" class="inputIcon">
+                    <path
+                        d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914z">
+                    </path>
+                </svg>
+            </div>
+
+           
+            <div style="margin-top: 40px; position: relative;">
+                <input type="password" class="form-control" id="senha_login" placeholder="Senha"
+                    name="senha_login" required>
+               
+                <svg viewBox="0 0 16 16" fill="#b5b3b3" height="16" width="16"
+                    xmlns="http://www.w3.org/2000/svg" class="inputIcon">
+                    <path
+                        d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z">
+                    </path>
+                </svg>
+            </div>
+
+
+            
+            <div style="margin-top: 40px;">
+                <input type="text" class="form-control" id="usuario_id_login" placeholder="Id Usuário"
+                    name="usuario_id_login" required>
+            </div>
+
+           
+            <div style="margin-top: 40px;">
+                <button type="submit" class="login-btn" onclick="openTab(event, 'Produtos')">
+                    <span class="btn-text">Login</span>
+                    <span class="btn-loader"></span>
+                </button>
+            </div>
+            <hr>
+
+            <div>
+                <p class="semConta">Não possui uma conta?</p>
+                <h6 style="text-align: center;"> <button type="button" class="btn-novo-user"
+                        onclick="mostrarCardRegistro()">Criar conta</button></h6>
+            </div>
+        </form>
+
+    </div>
+
+
+    <div id="CardRegistro" style="display: none;">
+
+
+        <form class="form" id="formUsuario" onsubmit="cadastrarUsuario(event)">
+
+            <div>
+                <h2 class="cadastroTitulo" style="text-align: center;">Cadastrar</h2>
+            </div>
+           
+            <div class="input-container" style="margin-top: 70px; position: relative;">
+                <input class="form-control" type="text" id="nome_usuario" name="nome_usuario"
+                    placeholder="Username" required>
+               
+                <svg viewBox="0 0 16 16" fill="#a6a4a4" height="16" width="16"
+                    xmlns="http://www.w3.org/2000/svg" class="inputIcon">
+                    <path
+                        d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914z">
+                    </path>
+                </svg>
+            </div>
+
+          
+            <div style="margin-top: 40px; position: relative;">
+                <input type="password" class="form-control" id="senha" placeholder="Senha" name="senha"
+                    required>
+              
+                <svg viewBox="0 0 16 16" fill="#b5b3b3" height="16" width="16"
+                    xmlns="http://www.w3.org/2000/svg" class="inputIcon">
+                    <path
+                        d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z">
+                    </path>
+                </svg>
+            </div>
+
+            <div style="margin-top: 40px; position: relative;">
+                <input type="password" class="form-control" id="senha_denovo" placeholder="Confirmar senha"
+                    name="senha_de_novo" required>
+              
+                <svg viewBox="0 0 16 16" fill="#b5b3b3" height="16" width="16"
+                    xmlns="http://www.w3.org/2000/svg" class="inputIcon">
+                    <path
+                        d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z">
+                    </path>
+                </svg>
+            </div>
+          
+            <div style="margin-top: 40px;">
+                <input type="text" class="form-control" id="usuario_id" placeholder="Id Usuário"
+                    name="usuario_id" required>
+            </div>
+
+          
+            <div style="margin-top: 40px;">
+                <button type="submit" class="login-btn">
+                    <span class="btn-text">Cadastrar</span>
+                    <span class="btn-loader"></span>
+                </button>
+            </div>
+        </form>
+
+
+    </div> -->
