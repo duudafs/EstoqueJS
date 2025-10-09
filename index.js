@@ -333,15 +333,18 @@ function SalvarEdicao(event) {
   let obs = document.getElementById("obs-edit").value.trim();
   let usuario = document.getElementById("usuario-edit").value.trim();
   let turno = document.getElementById("turno-edit").value.trim();
+ 
 
-  console.log({ usuario, nome, lote, codigo, codtinta, quant, data, descric, obs });
+  let id = produtos[editandoIndex].id;
+
+  console.log({ id, nome, lote, codigo, codtinta, quant, data, descric, obs, usuario, turno});
 
 
-  if (!usuario || !nome || !lote || !local || !codigo || !codtinta || !quant || !data || !descric || !obs || !turno) {
+  if (!id || !nome || !lote || !local || !codigo || !codtinta || !quant || !data || !descric || !obs || !usuario || !turno ) {
     alert("Preencha todos os campos!");
     return;
   }
-  produtos[editandoIndex] = { usuario, nome, lote, local, codigo, codtinta, quant, data, descric, obs, turno };
+  produtos[editandoIndex] = { id, nome, lote, local, codigo, codtinta, quant, data, descric, obs, usuario, turno };
 
 
   fetch('atualizar.php', {
@@ -349,24 +352,27 @@ function SalvarEdicao(event) {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    body: `nome=${encodeURIComponent(nome)}&lote=${encodeURIComponent(lote)}&local=${encodeURIComponent(local)}&codigo=${encodeURIComponent(codigo)}&codtinta=${encodeURIComponent(codtinta)}&quant=${encodeURIComponent(quant)}&data=${encodeURIComponent(data)}&descric=${encodeURIComponent(descric)}&obs=${encodeURIComponent(obs)}&turno=${encodeURIComponent(turno)}`
+     body: `id=${encodeURIComponent(id)}&nome=${encodeURIComponent(nome)}&lote=${encodeURIComponent(lote)}&local=${encodeURIComponent(local)}&codigo=${encodeURIComponent(codigo)}&codtinta=${encodeURIComponent(codtinta)}&quant=${encodeURIComponent(quant)}&data=${encodeURIComponent(data)}&descric=${encodeURIComponent(descric)}&obs=${encodeURIComponent(obs)}&usuario=${encodeURIComponent(usuario)}&turno=${encodeURIComponent(turno)}`
   })
 
   fetch('atualizarUsuarioss.php', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `usuario=${encodeURIComponent(usuario)}&turno=${encodeURIComponent(turno)}`
+    body: `usuario=${encodeURIComponent(usuario)}&turno=${encodeURIComponent(turno)}&id_usuario=${encodeURIComponent(id_usuario)}`
   })
 
     .then(response => response.json())
     .then(data => {
-      alert("Atualizado com sucesso");
-
-      mostrarTabelaEntrada(); // Atualiza a tabela
-      document.getElementById("CardEdit").style.display = "none";
-      document.getElementById("meuCard").style.display = "none";
+      if (data.success) {
+        alert("Produto atualizado com sucesso!");
+        mostrarTabelaEntrada();
+        document.getElementById("CardEdit").style.display = "none";
+        document.getElementById("meuCard").style.display = "none";
+      } else {
+        alert("Erro: " + data.errors.join(", "));
+      }
     })
-    .catch(error => console.error("Erro ao atualizar:", error));
+    .catch(error => console.error("Erro ao atualizar produto:", error));
 }
 
 function fecharCard() {
@@ -385,7 +391,7 @@ function Excluir(index) {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    body: `codigo=${encodeURIComponent(produto.codigo)}`
+    body: `id=${produto.id}`
   })
     .then(response => response.text())
     .then(data => {
@@ -539,6 +545,8 @@ function mostrarTabelaLocalizacao() {
     const trPrateleira = document.createElement("tr");
     trPrateleira.innerHTML = `<td>${localizacao.prateleira}</td><td><button type="button" method="POST" class="delete-btn" onclick="deletarLocalizacao(${index})"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/trash.png" alt="trash"/></button></td>`;
     document.getElementById("prateleiraTable").appendChild(trPrateleira);
+
+     atualizarPaginacaoLocalizacao();
   });
 }
 
@@ -569,6 +577,7 @@ function deletarLocalizacao(index) {
        atualizarPaginacaoLocalizacao();
     })
     .catch(error => console.error('Erro ao deletar:', error));
+    
 }
 
 
@@ -731,10 +740,10 @@ function SalvarEdicaoUsuarioss(event) {
         mostrarTabelaUsuarioss();
         document.getElementById("CardEditUsuarioss").style.display = "none";
       } else {
-        alert("Erro ao atualizar: " + data.error);
+        alert("Erro ao Erro ao atualizar Usuario: " + data.error);
       }
     })
-    .catch(error => console.error("Erro ao atualizar:", error));
+    .catch(error => console.error("Erro ao atualizar Usuario:", error));
 }
 // Preenche os campos com os dados do prod
 

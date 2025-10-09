@@ -22,7 +22,7 @@ $turno = $_POST['turno'];           // novo turno
 // Atualiza os dados do usuário
 $sql = "UPDATE usuarios SET usuario = ?, turno = ? WHERE id_usuario = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ss", $turno, $usuario);
+$stmt->bind_param("ssi", $turno, $usuario, $id_usuario);
 
 if ($stmt->execute()) {
     echo json_encode(["success" => true]);

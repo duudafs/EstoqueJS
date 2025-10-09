@@ -12,12 +12,12 @@ if ($conn->connect_error) {
 }
 
 // Recebe o código via POST
-$codigo = $_POST['codigo']; // ou $_GET['codigo']
+$id = $_POST['id']; // ou $_GET['codigo']
 
 // Deleta o produto pelo código
-$sql = "DELETE FROM nome_produtos WHERE codigo = ?";
+$sql = "DELETE FROM nome_produtos WHERE id = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $codigo);
+$stmt->bind_param("i", $id);
 
 if ($stmt->execute()) {
     echo "Produto deletado com sucesso!";

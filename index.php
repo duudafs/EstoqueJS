@@ -110,6 +110,8 @@ if ($conn->connect_error) {
                         echo "<tr><td colspan='11'>Nenhum produto encontrado.</td></tr>";
                     }
                     ?>
+
+                     
                     <!-- Conteúdo dinâmico -->
 
 
@@ -213,8 +215,8 @@ if ($conn->connect_error) {
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="usuario" class="form-label">Usuario:</label>
-                               
-                                 <select name="usuario" id="usuario" class="form-select">
+
+                                <select name="usuario" id="usuario" class="form-select">
                                     <?php
                                     $result = $conn->query("SELECT usuario FROM usuarios");
 
@@ -375,6 +377,17 @@ if ($conn->connect_error) {
 
         <!-- ABA LOCALIZAÇÃO -->
         <div id="Localizacao" class="tabcontent">
+            <?php
+        $localizacoes = [];
+        $sql = "SELECT setor, fileira, prateleira FROM localizacoes";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $localizacoes[] = $row; // Adiciona todos os campos ao array
+            }
+        }
+        ?>
             <div class="header-localizacao">
 
                 <h3 class="tituloLoc">Localização dos produtos</h3>
@@ -389,13 +402,13 @@ if ($conn->connect_error) {
                             </tr>
 
                             <?php
-                             $localizacoes = [];
+                            $localizacoes = [];
                             $sql = "SELECT setor FROM localizacoes";
                             $result = $conn->query($sql);
 
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
-                                      $localizacoes[] = $row;
+                                    $localizacoes[] = $row;
                                     echo "<tr>";
                                     echo "<td>" . htmlspecialchars($row['setor']) . "</td>";
                                     echo "</tr>";
@@ -426,24 +439,7 @@ if ($conn->connect_error) {
                             <tr>
                                 <th>Fileira</th>
                             </tr>
-                            <?php
-                             $localizacoes = [];
-                            $sql = "SELECT fileira FROM localizacoes";
-                            $result = $conn->query($sql);
-
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                      $localizacoes[] = $row;
-                                    echo "<tr>";
-                                    echo "<td>" . htmlspecialchars($row['fileira']) . "</td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='1'>Nenhuma fileira encontrada.</td></tr>";
-                            }
-
-
-                            ?>
+                           
 
 
                         </tbody>
@@ -470,7 +466,7 @@ if ($conn->connect_error) {
 
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
-                                      $localizacoes[] = $row;
+                                    $localizacoes[] = $row;
                                     echo "<tr>";
                                     echo "<td>" . htmlspecialchars($row['prateleira']) . "</td>";
                                     echo "</tr>";
@@ -589,7 +585,7 @@ if ($conn->connect_error) {
                 <div id="paginacaoUsuarioss" class="ms-3"></div>
             </div>
         </div>
-        
+
 
     </div>
 
@@ -607,15 +603,29 @@ if ($conn->connect_error) {
         const usuarios = <?php echo json_encode($usuarios, JSON_UNESCAPED_UNICODE); ?>;
         console.log(usuarios); // para testar
     </script>
+    <script>
+        <?php
+        $localizacoes = [];
+        $sql = "SELECT setor, fileira, prateleira FROM localizacoes";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $localizacoes[] = $row; // Adiciona todos os campos ao array
+            }
+        }
+        ?>
+
+    </script>
 
 
     <script>
         const produtos = <?php echo json_encode($produtos, JSON_UNESCAPED_UNICODE); ?>;
     </script>
 
-<script>
-    const localizacoes = <?php echo json_encode($localizacoes, JSON_UNESCAPED_UNICODE); ?>;
-</script>
+    <script>
+        const localizacoes = <?php echo json_encode($localizacoes, JSON_UNESCAPED_UNICODE); ?>;
+    </script>
 
     <script src="index.js" defer></script>
 
