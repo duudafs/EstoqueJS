@@ -522,17 +522,17 @@ function mostrarTabelaLocalizacao() {
   localizacoesPagina.forEach((loc, index) => {
     const trSetor = document.createElement("tr");
     trSetor.classList.add("linha-js");
-        trSetor.innerHTML = `<td>${loc.setor}</td><td><button onclick="deletarLocalizacao(${index})">Deletar</button></td>`;
+        trSetor.innerHTML = `<td>${loc.setor}</td><td><button onclick="deletarLocalizacao(${index})"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/trash.png" alt="trash"/></button></td>`;
     document.getElementById("setorTable").appendChild(trSetor);
 
     const trFileira = document.createElement("tr");
     trFileira.classList.add("linha-js");
-    trFileira.innerHTML = `<td>${loc.fileira}</td><td><button onclick="deletarLocalizacao(${index})">Deletar</button></td>`;
+    trFileira.innerHTML = `<td>${loc.fileira}</td><td><button onclick="deletarLocalizacao(${index})"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/trash.png" alt="trash"/></button></td>`;
     document.getElementById("fileiraTable").appendChild(trFileira);
 
     const trPrateleira = document.createElement("tr");
     trPrateleira.classList.add("linha-js");
-    trPrateleira.innerHTML = `<td>${loc.prateleira}</td><td><button onclick="deletarLocalizacao(${index})">Deletar</button></td>`;
+    trPrateleira.innerHTML = `<td>${loc.prateleira}</td><td><button onclick="deletarLocalizacao(${index})"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/trash.png" alt="trash"/></button></td>`;
     document.getElementById("prateleiraTable").appendChild(trPrateleira);
   });
 }
