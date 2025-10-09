@@ -3,6 +3,8 @@ let paginaAtual = 1;
 const itensPorPagina = 10;
 let editandoIndex = null;
 
+
+
 window.openTab = function (evt, tabName) {
   console.log("Tab clicada:", tabName);
 
@@ -459,6 +461,13 @@ function Salvar(event) {
     .catch(error => console.error('Erro:', error));
 }
 
+// Localização
+
+let paginaAtualLocalizacao = 1;
+let itensPorPaginaLocalizacao = 5;
+let localizacoes = [];
+
+
 function salvarLocalizacaoNoBanco(setor, fileira, prateleira) {
   fetch('salvar_localizacoes.php', {
     method: 'POST',
@@ -476,40 +485,68 @@ function salvarLocalizacaoNoBanco(setor, fileira, prateleira) {
 }
 
 document.getElementById('addLocalizacao').addEventListener('click', function () {
-  let setorInput = document.getElementById('setor');
-  let fileiraInput = document.getElementById('fileira');
-  let prateleiraInput = document.getElementById('prateleira');
+  const setor = document.getElementById('setor').value.trim();
+  const fileira = document.getElementById('fileira').value.trim();
+  const prateleira = document.getElementById('prateleira').value.trim();
 
-  let setor = setorInput.value.trim();
-  let fileira = fileiraInput.value.trim();
-  let prateleira = prateleiraInput.value.trim();
-
-  if (setor !== "" && fileira !== "" && prateleira !== "") {
-    // adiciona em cada tabela separada
-    let tabelaSetor = document.getElementById('setorTable');
-    let tabelaFileira = document.getElementById('fileiraTable');
-    let tabelaPrateleira = document.getElementById('prateleiraTable');
-
-    tabelaSetor.insertRow().insertCell(0).innerText = setor;
-    tabelaFileira.insertRow().insertCell(0).innerText = fileira;
-    tabelaPrateleira.insertRow().insertCell(0).innerText = prateleira;
-
-    // salva no banco automaticamente
-    salvarLocalizacaoNoBanco(setor, fileira, prateleira);
-
-    // limpa os campos
-    setorInput.value = "";
-    fileiraInput.value = "";
-    prateleiraInput.value = "";
-  } else {
+  if (!setor || !fileira || !prateleira) {
     alert("Preencha todos os campos antes de adicionar.");
+    return;
   }
+
+  // Adiciona ao array
+  localizacoes.push({ setor, fileira, prateleira });
+
+  // Atualiza tabela e paginação
+  mostrarTabelaLocalizacao();
+  atualizarPaginacaoLocalizacao();
+
+  // Salva no banco
+  salvarLocalizacaoNoBanco(setor, fileira, prateleira);
+
+  // Limpa inputs
+  document.getElementById('setor').value = "";
+  document.getElementById('fileira').value = "";
+  document.getElementById('prateleira').value = "";
 });
-function fecharCard() {
-  document.getElementById("meuCard").style.display = "none";
-  document.getElementById("CardEdit").style.display = "none";
+
+function mostrarTabelaLocalizacao() {
+  const inicio = (paginaAtualLocalizacao - 1) * itensPorPaginaLocalizacao;
+  const fim = inicio + itensPorPaginaLocalizacao;
+  const localizacoesPagina = localizacoes.slice(inicio, fim);
+
+  // Limpa apenas as linhas JS existentes
+  document.querySelectorAll(".linha-js").forEach(el => el.remove());
+
+  // Adiciona registros da página atual
+  localizacoesPagina.forEach((loc, index) => {
+    const trSetor = document.createElement("tr");
+    trSetor.classList.add("linha-js");
+        trSetor.innerHTML = `<td>${loc.setor}</td><td><button onclick="deletarLocalizacao(${index})">Deletar</button></td>`;
+    document.getElementById("setorTable").appendChild(trSetor);
+
+    const trFileira = document.createElement("tr");
+    trFileira.classList.add("linha-js");
+    trFileira.innerHTML = `<td>${loc.fileira}</td><td><button onclick="deletarLocalizacao(${index})">Deletar</button></td>`;
+    document.getElementById("fileiraTable").appendChild(trFileira);
+
+    const trPrateleira = document.createElement("tr");
+    trPrateleira.classList.add("linha-js");
+    trPrateleira.innerHTML = `<td>${loc.prateleira}</td><td><button onclick="deletarLocalizacao(${index})">Deletar</button></td>`;
+    document.getElementById("prateleiraTable").appendChild(trPrateleira);
+  });
 }
 
+function atualizarPaginacaoLocalizacao() {
+  const totalPaginas = Math.ceil(localizacoes.length / itensPorPaginaLocalizacao);
+  let html = "";
+
+  for (let i = 1; i <= totalPaginas; i++) {
+    html += `<button onclick="paginaAtualLocalizacao=${i}; mostrarTabelaLocalizacao()" class="${i === paginaAtualLocalizacao ? 'is-active' : ''}">${i}</button> `;
+  }
+
+  document.getElementById("paginacaoLocalizacao").innerHTML = html;
+}
 
 
 function buscarUsuarioss(termo) {

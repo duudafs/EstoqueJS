@@ -317,6 +317,28 @@ input:hover {
   font-weight: bold;
 }
 
+#paginacaoLocalizacao button {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0;
+  text-align: center;
+  display: inline-block;
+  /* necessário para aplicar altura/largura em <a> */
+  margin: 0 4px;
+  text-decoration: none;
+  color: #000;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+#paginacaoLocalizacao button.is-active {
+  background-color: #1e81f1;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+}
+
 .header-localizacao {
   display: flex;            /* coloca os elementos na mesma linha */
   align-items: center;      /* centraliza verticalmente */

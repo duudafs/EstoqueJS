@@ -491,7 +491,7 @@ if ($conn->connect_error) {
                 </div>
             </div>
             <div class="d-flex justify-content-start mt-4">
-                <div id="paginacaoProdutos" class="ms-3"></div>
+                <div id="paginacaoLocalizacao" class="ms-3"></div>
             </div>
 
         </div>
