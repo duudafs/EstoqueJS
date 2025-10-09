@@ -336,6 +336,7 @@ function SalvarEdicao(event) {
  
 
   let id = produtos[editandoIndex].id;
+  let id_usuario = usuarios[editandoIndex].id_usuario;
 
   console.log({ id, nome, lote, codigo, codtinta, quant, data, descric, obs, usuario, turno});
 
@@ -345,6 +346,7 @@ function SalvarEdicao(event) {
     return;
   }
   produtos[editandoIndex] = { id, nome, lote, local, codigo, codtinta, quant, data, descric, obs, usuario, turno };
+  usuarios[editandoIndex] = { id_usuario, usuario, turno };
 
 
   fetch('atualizar.php', {
@@ -358,7 +360,7 @@ function SalvarEdicao(event) {
   fetch('atualizarUsuarioss.php', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `usuario=${encodeURIComponent(usuario)}&turno=${encodeURIComponent(turno)}&id_usuario=${encodeURIComponent(id_usuario)}`
+    body: `id_usuario=${encodeURIComponent(id_usuario)}&usuario=${encodeURIComponent(usuario)}&turno=${encodeURIComponent(turno)}`
   })
 
     .then(response => response.json())
@@ -424,6 +426,7 @@ function Salvar(event) {
 
 
   let novoProduto = {
+  
     usuario: usuario,
     nome: nome,
     lote: lote,
@@ -438,6 +441,8 @@ function Salvar(event) {
   };
 
   produtos.push(novoProduto);
+  usuarios.push({ usuario, turno });
+ 
   mostrarTabelaUsuarioss();
   mostrarTabelaEntrada();
 
@@ -471,6 +476,7 @@ function Salvar(event) {
       document.getElementById("turno").value = "";
       document.getElementById("meuCard").style.display = "none";
       mostrarTabelaEntrada();
+      
     })
     .catch(error => console.error('Erro:', error));
 }
@@ -716,7 +722,7 @@ function SalvarEdicaoUsuarioss(event) {
 
   let usuario = document.getElementById("usuario-edit").value.trim();
   let turno = document.getElementById("turno-edit").value.trim();
-  let id_usuario = usuarios[editandoIndex].id_usuario; // 👈 pega o ID
+  let id_usuario = usuarios[editandoIndex].id_usuario; 
 
   console.log({ id_usuario, usuario, turno });
 
