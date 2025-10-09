@@ -2,6 +2,8 @@
 let paginaAtual = 1;
 const itensPorPagina = 10;
 let editandoIndex = null;
+let paginaAtualLocalizacao = 1;
+const itensPorPaginaLocalizacao = 10;
 
 
 
@@ -366,11 +368,17 @@ function SalvarEdicao(event) {
     })
     .catch(error => console.error("Erro ao atualizar:", error));
 }
+
+function fecharCard() {
+  document.getElementById("CardEdit").style.display = "none";
+  document.getElementById("meuCard").style.display = "none";
+
+}
 // Preenche os campos com os dados do prod
 
 function Excluir(index) {
   const produto = produtos[index];
-  
+
 
   fetch('deletar.php', {
     method: 'POST',
@@ -442,7 +450,7 @@ function Salvar(event) {
     .then(response => response.json())
     .then(data => {
       console.log(data);
-      
+
 
       document.getElementById("usuario").value = "";
       document.getElementById("nome").value = "";
@@ -463,9 +471,7 @@ function Salvar(event) {
 
 // Localização
 
-let paginaAtualLocalizacao = 1;
-let itensPorPaginaLocalizacao = 5;
-let localizacoes = [];
+
 
 
 function salvarLocalizacaoNoBanco(setor, fileira, prateleira) {
@@ -516,23 +522,22 @@ function mostrarTabelaLocalizacao() {
   const localizacoesPagina = localizacoes.slice(inicio, fim);
 
   // Limpa apenas as linhas JS existentes
-  document.querySelectorAll(".linha-js").forEach(el => el.remove());
+  document.getElementById("setorTable").innerHTML = "<tr><th>Setor</th></tr>";
+  document.getElementById("fileiraTable").innerHTML = "<tr><th>Fileira</th></tr>";
+  document.getElementById("prateleiraTable").innerHTML = "<tr><th>Prateleira</th></tr>";
 
   // Adiciona registros da página atual
-  localizacoesPagina.forEach((loc, index) => {
+  localizacoesPagina.forEach((localizacao, index) => {
     const trSetor = document.createElement("tr");
-    trSetor.classList.add("linha-js");
-        trSetor.innerHTML = `<td>${loc.setor}</td><td><button onclick="deletarLocalizacao(${index})"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/trash.png" alt="trash"/></button></td>`;
+    trSetor.innerHTML = `<td>${localizacao.setor}</td><td><button type="button" method="POST" class="delete-btn" onclick="deletarLocalizacao(${index})"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/trash.png" alt="trash"/></button></td>`;
     document.getElementById("setorTable").appendChild(trSetor);
 
     const trFileira = document.createElement("tr");
-    trFileira.classList.add("linha-js");
-    trFileira.innerHTML = `<td>${loc.fileira}</td><td><button onclick="deletarLocalizacao(${index})"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/trash.png" alt="trash"/></button></td>`;
+    trFileira.innerHTML = `<td>${localizacao.fileira}</td><td><button type="button" method="POST" class="delete-btn" onclick="deletarLocalizacao(${index})"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/trash.png" alt="trash"/></button></td>`;
     document.getElementById("fileiraTable").appendChild(trFileira);
 
     const trPrateleira = document.createElement("tr");
-    trPrateleira.classList.add("linha-js");
-    trPrateleira.innerHTML = `<td>${loc.prateleira}</td><td><button onclick="deletarLocalizacao(${index})"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/trash.png" alt="trash"/></button></td>`;
+    trPrateleira.innerHTML = `<td>${localizacao.prateleira}</td><td><button type="button" method="POST" class="delete-btn" onclick="deletarLocalizacao(${index})"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/trash.png" alt="trash"/></button></td>`;
     document.getElementById("prateleiraTable").appendChild(trPrateleira);
   });
 }
@@ -546,6 +551,24 @@ function atualizarPaginacaoLocalizacao() {
   }
 
   document.getElementById("paginacaoLocalizacao").innerHTML = html;
+}
+
+function deletarLocalizacao(index) {
+  const localizacao = localizacoes[index];
+
+  fetch('deletar_localizacao.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `setor=${encodeURIComponent(localizacao.setor)}&fileira=${encodeURIComponent(localizacao.fileira)}&prateleira=${encodeURIComponent(localizacao.prateleira)}`
+  })
+    .then(response => response.text())
+    .then(data => {
+      alert(data);
+      localizacoes.splice(index, 1);
+       mostrarTabelaLocalizacao();
+       atualizarPaginacaoLocalizacao();
+    })
+    .catch(error => console.error('Erro ao deletar:', error));
 }
 
 

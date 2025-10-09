@@ -12,10 +12,12 @@ if ($conn->connect_error) {
 }
 
 // Recebe o código via POST
-$codigo = $_POST['local']; // ou $_GET['codigo']
+$setor = $_POST['setor']; // ou $_GET['codigo']
+$fileira = $_POST['fileira'];
+$prateleira = $_POST['prateleira'];
 
 // Deleta o produto pelo código
-$sql = "DELETE FROM localizacoes WHERE setor = ?, fileira = ?, prateleira = ?";
+$sql = "DELETE FROM localizacoes WHERE setor = ? AND fileira = ? AND prateleira = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("sss", $setor, $fileira, $prateleira);
 

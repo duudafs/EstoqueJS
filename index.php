@@ -40,7 +40,6 @@ if ($conn->connect_error) {
         <button class="tablinks" onclick="openTab(event, 'Produtos')">Produtos</button>
         <button class="tablinks" onclick="openTab(event, 'Entrada')">Entrada e saída</button>
         <button class="tablinks" onclick="openTab(event, 'Localizacao')">Localização</button>
-        <button class="tablinks" onclick="openTab(event, 'Cadastro')">Cadastro</button>
         <button class="tablinks" onclick="openTab(event, 'Usuarioss')">Usuários</button>
     </div>
 
@@ -390,11 +389,13 @@ if ($conn->connect_error) {
                             </tr>
 
                             <?php
+                             $localizacoes = [];
                             $sql = "SELECT setor FROM localizacoes";
                             $result = $conn->query($sql);
 
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
+                                      $localizacoes[] = $row;
                                     echo "<tr>";
                                     echo "<td>" . htmlspecialchars($row['setor']) . "</td>";
                                     echo "</tr>";
@@ -426,11 +427,13 @@ if ($conn->connect_error) {
                                 <th>Fileira</th>
                             </tr>
                             <?php
+                             $localizacoes = [];
                             $sql = "SELECT fileira FROM localizacoes";
                             $result = $conn->query($sql);
 
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
+                                      $localizacoes[] = $row;
                                     echo "<tr>";
                                     echo "<td>" . htmlspecialchars($row['fileira']) . "</td>";
                                     echo "</tr>";
@@ -461,11 +464,13 @@ if ($conn->connect_error) {
                                 <th>Prateleira</th>
                             </tr>
                             <?php
+                            $localizacoes = [];
                             $sql = "SELECT prateleira FROM localizacoes";
                             $result = $conn->query($sql);
 
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
+                                      $localizacoes[] = $row;
                                     echo "<tr>";
                                     echo "<td>" . htmlspecialchars($row['prateleira']) . "</td>";
                                     echo "</tr>";
@@ -608,7 +613,9 @@ if ($conn->connect_error) {
         const produtos = <?php echo json_encode($produtos, JSON_UNESCAPED_UNICODE); ?>;
     </script>
 
-
+<script>
+    const localizacoes = <?php echo json_encode($localizacoes, JSON_UNESCAPED_UNICODE); ?>;
+</script>
 
     <script src="index.js" defer></script>
 
