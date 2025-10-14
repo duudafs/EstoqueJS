@@ -337,9 +337,22 @@ function SalvarEdicao(event) {
 
   let id = produtos[editandoIndex].id;
   let id_usuario = usuarios[editandoIndex].id_usuario;
+  
 
   console.log({ id, nome, lote, codigo, codtinta, quant, data, descric, obs, usuario, turno});
 
+  const usuarioIndex = usuarios.findIndex(u => u.id_usuario === id_usuario);
+
+if (usuarioIndex !== -1) {
+    usuarios[usuarioIndex].usuario = usuario;
+    usuarios[usuarioIndex].turno = turno;
+}
+  produtos.forEach(prod => {
+        if (prod.id_usuario === id_usuario) {
+            prod.usuario = usuario;
+            prod.turno = turno;
+        }
+    });
 
   if (!id || !nome || !lote || !local || !codigo || !codtinta || !quant || !data || !descric || !obs || !usuario || !turno ) {
     alert("Preencha todos os campos!");
@@ -482,10 +495,6 @@ function Salvar(event) {
 }
 
 // Localização
-
-
-
-
 function salvarLocalizacaoNoBanco(setor, fileira, prateleira) {
   fetch('salvar_localizacoes.php', {
     method: 'POST',
@@ -495,38 +504,20 @@ function salvarLocalizacaoNoBanco(setor, fileira, prateleira) {
     body: `setor=${encodeURIComponent(setor)}&fileira=${encodeURIComponent(fileira)}&prateleira=${encodeURIComponent(prateleira)}`
   })
     .then(response => response.text())
-    .then(data => {
-      console.log(data);
+     .then(idGerado => {
+    // Adiciona ao array com ID real
+    localizacoes.push({ id: idGerado, setor, fileira, prateleira });
+
+    // Atualiza tabela e paginação
+    mostrarTabelaLocalizacao();
+    atualizarPaginacaoLocalizacao();
+
       alert("Localização salva com sucesso!");
     })
     .catch(error => console.error('Erro:', error));
 }
 
-document.getElementById('addLocalizacao').addEventListener('click', function () {
-  const setor = document.getElementById('setor').value.trim();
-  const fileira = document.getElementById('fileira').value.trim();
-  const prateleira = document.getElementById('prateleira').value.trim();
 
-  if (!setor || !fileira || !prateleira) {
-    alert("Preencha todos os campos antes de adicionar.");
-    return;
-  }
-
-  // Adiciona ao array
-  localizacoes.push({ setor, fileira, prateleira });
-
-  // Atualiza tabela e paginação
-  mostrarTabelaLocalizacao();
-  atualizarPaginacaoLocalizacao();
-
-  // Salva no banco
-  salvarLocalizacaoNoBanco(setor, fileira, prateleira);
-
-  // Limpa inputs
-  document.getElementById('setor').value = "";
-  document.getElementById('fileira').value = "";
-  document.getElementById('prateleira').value = "";
-});
 
 function mostrarTabelaLocalizacao() {
   const inicio = (paginaAtualLocalizacao - 1) * itensPorPaginaLocalizacao;
@@ -534,14 +525,20 @@ function mostrarTabelaLocalizacao() {
   const localizacoesPagina = localizacoes.slice(inicio, fim);
 
   // Limpa apenas as linhas JS existentes
-  document.getElementById("setorTable").innerHTML = "<tr><th>Setor</th></tr>";
+
+  document.getElementById("setorTable").innerHTML = "<tr><th>ID</th><th>Setor</th></tr>";
   document.getElementById("fileiraTable").innerHTML = "<tr><th>Fileira</th></tr>";
   document.getElementById("prateleiraTable").innerHTML = "<tr><th>Prateleira</th></tr>";
 
   // Adiciona registros da página atual
+
+
+
   localizacoesPagina.forEach((localizacao, index) => {
+   
+  
     const trSetor = document.createElement("tr");
-    trSetor.innerHTML = `<td>${localizacao.setor}</td><td><button type="button" method="POST" class="delete-btn" onclick="deletarLocalizacao(${index})"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/trash.png" alt="trash"/></button></td>`;
+    trSetor.innerHTML = `<td>${localizacao.id ?? "-"}</td><td>${localizacao.setor}</td><td><button type="button" method="POST" class="delete-btn" onclick="deletarLocalizacao(${index})"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/trash.png" alt="trash"/></button></td>`;
     document.getElementById("setorTable").appendChild(trSetor);
 
     const trFileira = document.createElement("tr");
@@ -555,6 +552,27 @@ function mostrarTabelaLocalizacao() {
      atualizarPaginacaoLocalizacao();
   });
 }
+
+
+document.getElementById('addLocalizacao').addEventListener('click', function () {
+
+  const setor = document.getElementById('setor').value.trim();
+  const fileira = document.getElementById('fileira').value.trim();
+  const prateleira = document.getElementById('prateleira').value.trim();
+
+  if (!setor || !fileira || !prateleira) {
+    alert("Preencha todos os campos antes de adicionar.");
+    return;
+  }
+
+ 
+  salvarLocalizacaoNoBanco(setor, fileira, prateleira);
+
+  document.getElementById('setor').value = "";
+  document.getElementById('fileira').value = "";
+  document.getElementById('prateleira').value = "";
+});
+
 
 function atualizarPaginacaoLocalizacao() {
   const totalPaginas = Math.ceil(localizacoes.length / itensPorPaginaLocalizacao);
@@ -701,57 +719,71 @@ function fecharCardUsuarioss() {
   document.getElementById("CardEditUsuarioss").style.display = "none";
 }
 
-function EditarUsuarioss(index) {
-  editandoIndex = index;
-  let item = usuarios[index];
-  console.log(item);
 
-  document.getElementById("usuario-edit").value = item.usuario;
-  document.getElementById("turno-edit").value = item.turno;
+function fecharCard() {
+  document.getElementById("CardEdit").style.display = "none";
+  document.getElementById("meuCard").style.display = "none";
 
-
-  document.getElementById("CardEditUsuarioss").style.display = "flex";
-
-
-  // Salva o índice para edição
-  editandoIndex = index;
 }
 
+
+
+
+function EditarUsuarioss(index) {
+    editandoIndex = index;
+    let item = usuarios[index];
+    console.log("Editando usuário:", index, item);
+    document.getElementById("usuario-edit2").value = item.usuario;
+    document.getElementById("turno-edit2").value = item.turno;
+    document.getElementById("CardEditUsuarioss").style.display = "flex";
+}
+
+// Salva edição
 function SalvarEdicaoUsuarioss(event) {
-  event.preventDefault();
+    event.preventDefault();
 
-  let usuario = document.getElementById("usuario-edit").value.trim();
-  let turno = document.getElementById("turno-edit").value.trim();
-  let id_usuario = usuarios[editandoIndex].id_usuario; 
+   let usuario = document.getElementById("usuario-edit2").value.trim();
+   let turno = document.getElementById("turno-edit2").value.trim();
+   let id_usuario = usuarios[editandoIndex].id_usuario;
 
-  console.log({ id_usuario, usuario, turno });
+   
 
-  if (!usuario || !turno) {
-    alert("Preencha todos os campos!");
-    return;
-  }
+    if (!usuario || !turno) {
+        alert("Preencha todos os campos!");
+        return;
+    }
 
-  // Atualiza o array local
-  usuarios[editandoIndex] = { id_usuario, usuario, turno };
+     usuarios[editandoIndex] = { id_usuario, usuario, turno };
+    console.log(`Enviando dados: id_usuario=${id_usuario}, usuario=${usuario}, turno=${turno}`);
 
-  fetch('atualizarUsuarioss.php', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `id_usuario=${encodeURIComponent(id_usuario)}&usuario=${encodeURIComponent(usuario)}&turno=${encodeURIComponent(turno)}`
-  })
+     produtos.forEach(prod => {
+        if (prod.id_usuario === id_usuario) {
+            prod.usuario = usuario;
+            prod.turno = turno;
+        }
+    });
+
+    fetch('atualizarUsuarioss.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `id_usuario=${encodeURIComponent(id_usuario)}&usuario=${encodeURIComponent(usuario)}&turno=${encodeURIComponent(turno)}`
+    })
     .then(response => response.json())
     .then(data => {
-      if (data.success) {
-        alert("Atualizado com sucesso");
-        mostrarTabelaUsuarioss();
-        document.getElementById("CardEditUsuarioss").style.display = "none";
-      } else {
-        alert("Erro ao Erro ao atualizar Usuario: " + data.error);
-      }
+        console.log("Resposta do servidor:", data);
+        if (data.success) {
+          
+            console.log("Array de usuários atualizado:", usuarios);
+            mostrarTabelaUsuarioss();
+            mostrarTabelaEntrada();
+            document.getElementById("CardEditUsuarioss").style.display = "none";
+            alert("Usuário atualizado com sucesso!");
+        } else {
+            alert("Erro ao atualizar usuário: " + data.error);
+        }
     })
-    .catch(error => console.error("Erro ao atualizar Usuario:", error));
+    .catch(error => console.error("Erro ao atualizar usuário:", error));
 }
-// Preenche os campos com os dados do prod
 
 // Excluir
 function ExcluirUsuarioss(index) {

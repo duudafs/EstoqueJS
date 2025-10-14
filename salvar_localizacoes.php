@@ -21,15 +21,19 @@ $prateleira = $_POST['prateleira'];
 
 
 // Inserir no banco
-$sql = "INSERT INTO localizacoes (setor, fileira, prateleira) VALUES (?,?,?)";
+
+
+$sql = "INSERT INTO localizacoes ( setor, fileira, prateleira) VALUES (?,?,?)";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("sss", $setor, $fileira, $prateleira); 
+$stmt->bind_param("sss",  $setor, $fileira, $prateleira);
+
 
 if ($stmt->execute()) {
-    echo "Produto salvo com sucesso!";
+    echo $stmt->insert_id;
 } else {
     echo "Erro: " . $stmt->error;
 }
 
+   $stmt->close();
 $conn->close();
 ?>

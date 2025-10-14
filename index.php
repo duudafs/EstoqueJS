@@ -111,7 +111,7 @@ if ($conn->connect_error) {
                     }
                     ?>
 
-                     
+
                     <!-- Conteúdo dinâmico -->
 
 
@@ -378,38 +378,44 @@ if ($conn->connect_error) {
         <!-- ABA LOCALIZAÇÃO -->
         <div id="Localizacao" class="tabcontent">
             <?php
-        $localizacoes = [];
-        $sql = "SELECT setor, fileira, prateleira FROM localizacoes";
-        $result = $conn->query($sql);
+            $localizacoes = [];
+            $sql = "SELECT id, setor, fileira, prateleira FROM localizacoes";
+            $result = $conn->query($sql);
 
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $localizacoes[] = $row; // Adiciona todos os campos ao array
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $localizacoes[] = $row; // Adiciona todos os campos ao array
+                }
             }
-        }
-        ?>
+            ?>
             <div class="header-localizacao">
 
                 <h3 class="tituloLoc">Localização dos produtos</h3>
             </div>
 
+
             <div class="row">
+
+               
+
                 <div class="col">
                     <table class="table">
                         <tbody id="setorTable">
                             <tr>
+                                <th>Id</th>
                                 <th>Setor</th>
                             </tr>
 
                             <?php
                             $localizacoes = [];
-                            $sql = "SELECT setor FROM localizacoes";
+                            $sql = "SELECT id, setor FROM localizacoes";
                             $result = $conn->query($sql);
 
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
                                     $localizacoes[] = $row;
                                     echo "<tr>";
+                                       echo "<td>" . htmlspecialchars($row['id']) . "</td>";
                                     echo "<td>" . htmlspecialchars($row['setor']) . "</td>";
                                     echo "</tr>";
                                 }
@@ -439,7 +445,24 @@ if ($conn->connect_error) {
                             <tr>
                                 <th>Fileira</th>
                             </tr>
-                           
+ <?php
+                            $localizacoes = [];
+                            $sql = "SELECT fileira FROM localizacoes";
+                            $result = $conn->query($sql);
+
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    $localizacoes[] = $row;
+                                    echo "<tr>";
+                                    echo "<td>" . htmlspecialchars($row['fileira']) . "</td>";
+                                    echo "</tr>";
+                                }
+                            } else {
+                                echo "<tr><td colspan='1'>Nenhuma fileira encontrada.</td></tr>";
+                            }
+
+
+                            ?>
 
 
                         </tbody>
@@ -557,11 +580,11 @@ if ($conn->connect_error) {
                                 <div class="row mb-4">
                                     <div class="col-md-8 mt-5">
                                         <label for="usuario" class="form-label">Usuário:</label>
-                                        <input type="text" id="usuario-edit" name="usuario">
+                                        <input type="text" id="usuario-edit2" name="usuario">
                                     </div>
                                     <div class="col-md-8 mt-2">
                                         <label for="turno" class="form-label">Turno:</label>
-                                        <input type="text" id="turno-edit" name="turno">
+                                        <input type="text" id="turno-edit2" name="turno">
                                     </div>
 
                                 </div>
@@ -606,7 +629,7 @@ if ($conn->connect_error) {
     <script>
         <?php
         $localizacoes = [];
-        $sql = "SELECT setor, fileira, prateleira FROM localizacoes";
+        $sql = "SELECT id, setor, fileira, prateleira FROM localizacoes";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
