@@ -4,18 +4,26 @@ $username = "root";
 $password = "";
 $dbname = "test";
 
+// Conexão com o banco de dados
 $conn = new mysqli($servername, $username, $password, $dbname);
+
+// Verifica a conexão
 if ($conn->connect_error) {
-    die(json_encode(["success" => false, "error" => $conn->connect_error]));
+    die("Falha na conexão: " . $conn->connect_error);
 }
 
 // Recebe os dados do POST
-$usuario = $_POST['usuario'] ?? '';
-$turno = $_POST['turno'] ?? '';
-$id_usuario = $_POST['id_usuario'] ?? 0;
+
+
+
+$usuario = $_POST['usuario'];       // novo nome
+$turno = $_POST['turno'];       
+$id_usuario = $_POST['id_usuario']; // chave primária do usuário    // novo turno
 
 // Atualiza os dados do usuário
-$sql = "UPDATE usuarios SET usuario = ?, turno = ? WHERE id_usuario = ?";
+$sql = "UPDATE usuarios 
+    SET usuario = ?, turno = ?
+    WHERE id_usuario = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("ssi", $usuario, $turno, $id_usuario);
 

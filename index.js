@@ -381,6 +381,7 @@ if (usuarioIndex !== -1) {
       if (data.success) {
         alert("Produto atualizado com sucesso!");
         mostrarTabelaEntrada();
+        mostrarTabelaUsuarioss();
         document.getElementById("CardEdit").style.display = "none";
         document.getElementById("meuCard").style.display = "none";
       } else {
