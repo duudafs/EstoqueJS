@@ -28,9 +28,10 @@ $descric = $_POST['descric'];
 $obs = $_POST['obs'];
 $id = $_POST['id']; // ID do produto
 
-$id_usuario = $_POST['id_usuario']; // ID do usuário
+
 $usuario = $_POST['usuario'];
 $turno = $_POST['turno'];
+$id_usuario = $_POST['id_usuario']; // ID do usuário
 
 // Atualiza o produto pelo ID
 $sql_produto = "UPDATE nome_produtos 

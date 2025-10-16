@@ -4,16 +4,16 @@ $user = "root";
 $pass = "";
 $dbname = "test";
 
-// Conexão
+
 
 $conn = new mysqli($host, $user, $pass, $dbname);
 if ($conn->connect_error) {
     die("Falha na conexão: " . $conn->connect_error);
 }
 
-// Recebe o código via POST
 
-$setor = $_POST['setor']; // ou $_GET['codigo']
+
+$setor = $_POST['setor']; 
 $fileira = $_POST['fileira'];
 $prateleira = $_POST['prateleira'];
 

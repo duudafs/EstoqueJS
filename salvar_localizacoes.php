@@ -1,18 +1,18 @@
 <?php
 $host = "localhost";
 $user = "root";
-$pass = ""; // ou "sua_senha", se você configurou uma
+$pass = ""; 
 $dbname = "test";
 
 // Conexão com MySQL puro
 $conn = new mysqli($host, $user, $pass, $dbname);
 
-// Checar conexão
+
 if ($conn->connect_error) {
     die("Falha na conexão: " . $conn->connect_error);
 }
 
-// Dados do formulário
+
 
 $setor = $_POST['setor'];
 $fileira = $_POST['fileira'];

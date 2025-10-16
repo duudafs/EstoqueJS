@@ -1,10 +1,10 @@
 <?php
 $host = "localhost";
 $user = "root";
-$pass = ""; // ou "sua_senha", se você configurou uma
+$pass = ""; 
 $dbname = "test";
 
-// Conexão com MySQL puro
+
 $conn = new mysqli($host, $user, $pass, $dbname);
 
 // Checar conexão
@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 }
 
 
-// Dados do formulário
+
 $nome = $_POST['nome-user'];
 $lote = $_POST['lote-user'];
 $local = $_POST['local-user']; 

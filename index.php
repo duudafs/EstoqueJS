@@ -72,8 +72,8 @@ if ($conn->connect_error) {
                     <?php
                     $produtos = [];
                     $sql = "SELECT 
-            p.id,          -- ID do produto
-            p.nome,        -- nome do produto
+            p.id,         
+            p.nome,       
             p.lote,
             p.local,
             p.codigo,
@@ -83,7 +83,7 @@ if ($conn->connect_error) {
             p.descric,
             p.obs,
             u.id_usuario,
-            u.usuario     -- nome do usuário
+            u.usuario     
         FROM nome_produtos p
         LEFT JOIN usuarios_alteracoes up ON p.id = up.id_produto 
         LEFT JOIN usuarios u ON up.id_usuario = u.id_usuario";
@@ -112,7 +112,7 @@ if ($conn->connect_error) {
                     ?>
 
 
-                    <!-- Conteúdo dinâmico -->
+
 
 
                 </tbody>
@@ -134,7 +134,7 @@ if ($conn->connect_error) {
                     style="border-radius: 15px; border:none;  box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
             </div>
 
-            <!-- FORMULÁRIO DE CADASTRO -->
+
 
 
             <div id="meuCard" style="display: none;">
@@ -232,7 +232,13 @@ if ($conn->connect_error) {
                             </div>
                             <div class="col-md-6">
                                 <label for="turno" class="form-label">Turno:</label>
-                                <input type="text" id="turno" name="turno" placeholder="Turno do usuário...">
+                                <select name="turno" id="turno" class="form-select">
+                                    <option value="1º Turno">1º Turno</option>
+                                    <option value="2º turno">2º turno</option>
+                                    <option value="3º Turno">3º Turno</option>
+
+
+                                </select>
 
                             </div>
 
@@ -322,11 +328,30 @@ if ($conn->connect_error) {
                         <div class="row mb-2">
                             <div class="col-md-6">
                                 <label for="usuario" class="form-label">Usuario:</label>
-                                <input type="text" id="usuario-edit" name="usuario" placeholder="Nome do usuario...">
+                                 <select name="usuario" id="usuario-edit" class="form-select">
+                                    <?php
+                                    $result = $conn->query("SELECT usuario FROM usuarios");
+
+                                    if ($result && $result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<option value='" . htmlspecialchars($row['usuario']) . "'>" . htmlspecialchars($row['usuario']) . "</option>";
+                                        }
+                                    } else {
+                                        echo "<option value=''>Nenhum usuario encontrado</option>";
+                                    }
+                                    ?>
+                                </select>
                             </div>
                             <div class="col-md-6">
                                 <label for="turno" class="form-label">Turno:</label>
-                                <input type="text" id="turno-edit" name="turno" placeholder="Turno do usuário...">
+
+                                <select name="turno" id="turno-edit" class="form-select">
+                                    <option value="1º Turno">1º Turno</option>
+                                    <option value="2º turno">2º turno</option>
+                                    <option value="3º Turno">3º Turno</option>
+
+
+                                </select>
 
 
                             </div>
@@ -362,7 +387,7 @@ if ($conn->connect_error) {
                     </tr>
 
 
-                    <!-- Conteúdo dinâmico -->
+
                 </tbody>
             </table>
 
@@ -396,7 +421,7 @@ if ($conn->connect_error) {
 
             <div class="row">
 
-               
+
 
                 <div class="col">
                     <table class="table">
@@ -415,7 +440,7 @@ if ($conn->connect_error) {
                                 while ($row = $result->fetch_assoc()) {
                                     $localizacoes[] = $row;
                                     echo "<tr>";
-                                       echo "<td>" . htmlspecialchars($row['id']) . "</td>";
+                                    echo "<td>" . htmlspecialchars($row['id']) . "</td>";
                                     echo "<td>" . htmlspecialchars($row['setor']) . "</td>";
                                     echo "</tr>";
                                 }
@@ -445,7 +470,7 @@ if ($conn->connect_error) {
                             <tr>
                                 <th>Fileira</th>
                             </tr>
- <?php
+                            <?php
                             $localizacoes = [];
                             $sql = "SELECT fileira FROM localizacoes";
                             $result = $conn->query($sql);
@@ -580,11 +605,29 @@ if ($conn->connect_error) {
                                 <div class="row mb-4">
                                     <div class="col-md-8 mt-5">
                                         <label for="usuario" class="form-label">Usuário:</label>
-                                        <input type="text" id="usuario-edit2" name="usuario">
+                                         <select name="usuario" id="usuario-edit2" class="form-select">
+                                    <?php
+                                    $result = $conn->query("SELECT usuario FROM usuarios");
+
+                                    if ($result && $result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<option value='" . htmlspecialchars($row['usuario']) . "'>" . htmlspecialchars($row['usuario']) . "</option>";
+                                        }
+                                    } else {
+                                        echo "<option value=''>Nenhum usuario encontrado</option>";
+                                    }
+                                    ?>
+                                </select>
                                     </div>
                                     <div class="col-md-8 mt-2">
                                         <label for="turno" class="form-label">Turno:</label>
-                                        <input type="text" id="turno-edit2" name="turno">
+
+                                        <select name="turno" id="turno-edit2" class="form-select">
+                                            <option value="1º Turno">1º Turno</option>
+                                            <option value="2º turno">2º turno</option>
+                                            <option value="3º Turno">3º Turno</option>
+
+                                        </select>
                                     </div>
 
                                 </div>
@@ -624,7 +667,7 @@ if ($conn->connect_error) {
         }
         ?>
         const usuarios = <?php echo json_encode($usuarios, JSON_UNESCAPED_UNICODE); ?>;
-        console.log(usuarios); // para testar
+        console.log(usuarios); // 
     </script>
     <script>
         <?php

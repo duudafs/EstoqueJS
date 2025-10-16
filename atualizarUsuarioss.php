@@ -4,21 +4,21 @@ $username = "root";
 $password = "";
 $dbname = "test";
 
-// Conexão com o banco de dados
+
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verifica a conexão
+
 if ($conn->connect_error) {
     die("Falha na conexão: " . $conn->connect_error);
 }
 
-// Recebe os dados do POST
 
 
 
-$usuario = $_POST['usuario'];       // novo nome
+
+$usuario = $_POST['usuario'];       
 $turno = $_POST['turno'];       
-$id_usuario = $_POST['id_usuario']; // chave primária do usuário    // novo turno
+$id_usuario = $_POST['id_usuario'];   
 
 // Atualiza os dados do usuário
 $sql = "UPDATE usuarios 

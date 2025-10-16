@@ -27,9 +27,9 @@ window.openTab = function (evt, tabName) {
   if (tabName === "Entrada") {
     mostrarTabelaEntrada(); // carrega os produtos na tabela dinamicamente
   } else if (tabName === "Produtos") {
-    mostrarTabelaProdutos(); // agora com paginação!
+    mostrarTabelaProdutos(); 
   } else if (tabName === "Localizacao") {
-    mostrarTabelaLocalizacao(); // carrega a tabela de localização
+    mostrarTabelaLocalizacao(); 
   } else if (tabName === "Usuarioss") {
     mostrarTabelaUsuarioss(); // 
   }
@@ -235,7 +235,6 @@ function mostrarTabelaEntrada() {
   const fim = inicio + itensPorPagina;
 
 
-
   const produtosPaginados = produtos.slice(inicio, fim);
 
   let htmlFinal = `
@@ -269,8 +268,8 @@ function mostrarTabelaEntrada() {
   <td>${item.descric}</td>
   <td>${item.obs}</td>
   <td>
-           <button type="button" method="POST" class="delete-btn" onclick="Excluir(${index})"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/trash.png" alt="trash"/></button>
-          <button class="edit-btn" onclick="Editar(${index})"><img width="24" height="24" src="https://img.icons8.com/material/24/pencil--v1.png" alt="pencil--v1"/></button>
+           <button type="button" method="POST" class="delete-btn" onclick="Excluir(${inicio + index})"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/trash.png" alt="trash"/></button>
+          <button class="edit-btn" onclick="Editar(${inicio +index})"><img width="24" height="24" src="https://img.icons8.com/material/24/pencil--v1.png" alt="pencil--v1"/></button>
           </td>
           </tr>
            `;
@@ -278,8 +277,6 @@ function mostrarTabelaEntrada() {
   document.getElementById("bodyTable").innerHTML = htmlFinal;
   atualizarPaginacao();
 }
-
-
 
 
 function atualizarPaginacao() {
@@ -315,7 +312,7 @@ function Editar(index) {
   document.getElementById("CardEdit").style.display = "block";
 
 
-  // Salva o índice para edição
+  
   editandoIndex = index;
 }
 
@@ -333,32 +330,47 @@ function SalvarEdicao(event) {
   let obs = document.getElementById("obs-edit").value.trim();
   let usuario = document.getElementById("usuario-edit").value.trim();
   let turno = document.getElementById("turno-edit").value.trim();
- 
+
 
   let id = produtos[editandoIndex].id;
-  let id_usuario = usuarios[editandoIndex].id_usuario;
-  
+  let id_usuario = produtos[editandoIndex].id_usuario;
 
-  console.log({ id, nome, lote, codigo, codtinta, quant, data, descric, obs, usuario, turno});
+
+
+  console.log("usuarios:", usuarios);
+  console.log("id_usuario:", id_usuario);
+
+
+  console.log({ id, nome, lote, codigo, codtinta, quant, data, descric, obs, usuario, turno });
 
   const usuarioIndex = usuarios.findIndex(u => u.id_usuario === id_usuario);
+  const produtoIndex = produtos.findIndex(p => p.id === id);
+ 
 
-if (usuarioIndex !== -1) {
+  if (produtoIndex !== -1) {
+    produtos[produtoIndex] = { id, nome, lote, local, codigo, codtinta, quant, data, descric, obs, usuario, turno };
+  }
+
+
+  if (usuarioIndex !== -1) {
     usuarios[usuarioIndex].usuario = usuario;
     usuarios[usuarioIndex].turno = turno;
-}
-  produtos.forEach(prod => {
-        if (prod.id_usuario === id_usuario) {
-            prod.usuario = usuario;
-            prod.turno = turno;
-        }
-    });
 
-  if (!id || !nome || !lote || !local || !codigo || !codtinta || !quant || !data || !descric || !obs || !usuario || !turno ) {
+  }
+  produtos.forEach(prod => {
+    if (prod.id_usuario === id_usuario) {
+      prod.usuario = usuario;
+      prod.turno = turno;
+    }
+  });
+
+   
+
+  if (!id || !nome || !lote || !local || !codigo || !codtinta || !quant || !data || !descric || !obs || !usuario || !turno) {
     alert("Preencha todos os campos!");
     return;
   }
-  produtos[editandoIndex] = { id, nome, lote, local, codigo, codtinta, quant, data, descric, obs, usuario, turno };
+  produtos[editandoIndex] = { id, id_usuario, nome, lote, local, codigo, codtinta, quant, data, descric, obs, usuario, turno };
   usuarios[editandoIndex] = { id_usuario, usuario, turno };
 
 
@@ -367,7 +379,7 @@ if (usuarioIndex !== -1) {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-     body: `id=${encodeURIComponent(id)}&nome=${encodeURIComponent(nome)}&lote=${encodeURIComponent(lote)}&local=${encodeURIComponent(local)}&codigo=${encodeURIComponent(codigo)}&codtinta=${encodeURIComponent(codtinta)}&quant=${encodeURIComponent(quant)}&data=${encodeURIComponent(data)}&descric=${encodeURIComponent(descric)}&obs=${encodeURIComponent(obs)}&usuario=${encodeURIComponent(usuario)}&turno=${encodeURIComponent(turno)}`
+    body: `id=${encodeURIComponent(id)}&nome=${encodeURIComponent(nome)}&lote=${encodeURIComponent(lote)}&local=${encodeURIComponent(local)}&codigo=${encodeURIComponent(codigo)}&codtinta=${encodeURIComponent(codtinta)}&quant=${encodeURIComponent(quant)}&data=${encodeURIComponent(data)}&descric=${encodeURIComponent(descric)}&obs=${encodeURIComponent(obs)}&usuario=${encodeURIComponent(usuario)}&turno=${encodeURIComponent(turno)}`
   })
 
   fetch('atualizarUsuarioss.php', {
@@ -396,7 +408,7 @@ function fecharCard() {
   document.getElementById("meuCard").style.display = "none";
 
 }
-// Preenche os campos com os dados do prod
+
 
 function Excluir(index) {
   const produto = produtos[index];
@@ -440,7 +452,7 @@ function Salvar(event) {
 
 
   let novoProduto = {
-  
+
     usuario: usuario,
     nome: nome,
     lote: lote,
@@ -456,7 +468,7 @@ function Salvar(event) {
 
   produtos.push(novoProduto);
   usuarios.push({ usuario, turno });
- 
+
   mostrarTabelaUsuarioss();
   mostrarTabelaEntrada();
 
@@ -490,7 +502,7 @@ function Salvar(event) {
       document.getElementById("turno").value = "";
       document.getElementById("meuCard").style.display = "none";
       mostrarTabelaEntrada();
-      
+
     })
     .catch(error => console.error('Erro:', error));
 }
@@ -505,13 +517,13 @@ function salvarLocalizacaoNoBanco(setor, fileira, prateleira) {
     body: `setor=${encodeURIComponent(setor)}&fileira=${encodeURIComponent(fileira)}&prateleira=${encodeURIComponent(prateleira)}`
   })
     .then(response => response.text())
-     .then(idGerado => {
-    // Adiciona ao array com ID real
-    localizacoes.push({ id: idGerado, setor, fileira, prateleira });
+    .then(idGerado => {
+      // Adiciona ao array com ID real
+      localizacoes.push({ id: idGerado, setor, fileira, prateleira });
 
-    // Atualiza tabela e paginação
-    mostrarTabelaLocalizacao();
-    atualizarPaginacaoLocalizacao();
+      // Atualiza tabela e paginação
+      mostrarTabelaLocalizacao();
+      atualizarPaginacaoLocalizacao();
 
       alert("Localização salva com sucesso!");
     })
@@ -531,26 +543,26 @@ function mostrarTabelaLocalizacao() {
   document.getElementById("fileiraTable").innerHTML = "<tr><th>Fileira</th></tr>";
   document.getElementById("prateleiraTable").innerHTML = "<tr><th>Prateleira</th></tr>";
 
-  // Adiciona registros da página atual
+  
 
 
 
   localizacoesPagina.forEach((localizacao, index) => {
-   
-  
+
+// Aqui ele vai criar as linhas com os botões de deletar
     const trSetor = document.createElement("tr");
-    trSetor.innerHTML = `<td>${localizacao.id ?? "-"}</td><td>${localizacao.setor}</td><td><button type="button" method="POST" class="delete-btn" onclick="deletarLocalizacao(${index})"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/trash.png" alt="trash"/></button></td>`;
+    trSetor.innerHTML = `<td>${localizacao.id ?? "-"}</td><td>${localizacao.setor}</td><td><button type="button" method="POST" class="delete-btn" onclick="deletarLocalizacao(${inicio + index})"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/trash.png" alt="trash"/></button></td>`;
     document.getElementById("setorTable").appendChild(trSetor);
 
     const trFileira = document.createElement("tr");
-    trFileira.innerHTML = `<td>${localizacao.fileira}</td><td><button type="button" method="POST" class="delete-btn" onclick="deletarLocalizacao(${index})"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/trash.png" alt="trash"/></button></td>`;
+    trFileira.innerHTML = `<td>${localizacao.fileira}</td><td><button type="button" method="POST" class="delete-btn" onclick="deletarLocalizacao(${inicio + index})"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/trash.png" alt="trash"/></button></td>`;
     document.getElementById("fileiraTable").appendChild(trFileira);
 
     const trPrateleira = document.createElement("tr");
-    trPrateleira.innerHTML = `<td>${localizacao.prateleira}</td><td><button type="button" method="POST" class="delete-btn" onclick="deletarLocalizacao(${index})"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/trash.png" alt="trash"/></button></td>`;
+    trPrateleira.innerHTML = `<td>${localizacao.prateleira}</td><td><button type="button" method="POST" class="delete-btn" onclick="deletarLocalizacao(${inicio + index})"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/trash.png" alt="trash"/></button></td>`;
     document.getElementById("prateleiraTable").appendChild(trPrateleira);
 
-     atualizarPaginacaoLocalizacao();
+    atualizarPaginacaoLocalizacao();
   });
 }
 
@@ -566,7 +578,7 @@ document.getElementById('addLocalizacao').addEventListener('click', function () 
     return;
   }
 
- 
+
   salvarLocalizacaoNoBanco(setor, fileira, prateleira);
 
   document.getElementById('setor').value = "";
@@ -586,6 +598,7 @@ function atualizarPaginacaoLocalizacao() {
   document.getElementById("paginacaoLocalizacao").innerHTML = html;
 }
 
+// Deleta localização
 function deletarLocalizacao(index) {
   const localizacao = localizacoes[index];
 
@@ -598,11 +611,11 @@ function deletarLocalizacao(index) {
     .then(data => {
       alert(data);
       localizacoes.splice(index, 1);
-       mostrarTabelaLocalizacao();
-       atualizarPaginacaoLocalizacao();
+      mostrarTabelaLocalizacao();
+      atualizarPaginacaoLocalizacao();
     })
     .catch(error => console.error('Erro ao deletar:', error));
-    
+
 }
 
 
@@ -619,7 +632,7 @@ function buscarUsuarioss(termo) {
     ;
   });
 
-  // Agora atualiza a tabela com os filtrados
+  // Atualiza a tabela com os filtrados
   let htmlFinal = `
   <tr>
     <th>ID</th>
@@ -731,57 +744,57 @@ function fecharCard() {
 
 
 function EditarUsuarioss(index) {
-    editandoIndex = index;
-    let item = usuarios[index];
-    console.log("Editando usuário:", index, item);
-    document.getElementById("usuario-edit2").value = item.usuario;
-    document.getElementById("turno-edit2").value = item.turno;
-    document.getElementById("CardEditUsuarioss").style.display = "flex";
+  editandoIndex = index;
+  let item = usuarios[index];
+  console.log("Editando usuário:", index, item);
+  document.getElementById("usuario-edit2").value = item.usuario;
+  document.getElementById("turno-edit2").value = item.turno;
+  document.getElementById("CardEditUsuarioss").style.display = "flex";
 }
 
 // Salva edição
 function SalvarEdicaoUsuarioss(event) {
-    event.preventDefault();
+  event.preventDefault();
 
-   let usuario = document.getElementById("usuario-edit2").value.trim();
-   let turno = document.getElementById("turno-edit2").value.trim();
-   let id_usuario = usuarios[editandoIndex].id_usuario;
+  let usuario = document.getElementById("usuario-edit2").value.trim();
+  let turno = document.getElementById("turno-edit2").value.trim();
+  let id_usuario = usuarios[editandoIndex].id_usuario;
 
-   
 
-    if (!usuario || !turno) {
-        alert("Preencha todos os campos!");
-        return;
+
+  if (!usuario || !turno) {
+    alert("Preencha todos os campos!");
+    return;
+  }
+
+  usuarios[editandoIndex] = { id_usuario, usuario, turno };
+  console.log(`Enviando dados: id_usuario=${id_usuario}, usuario=${usuario}, turno=${turno}`);
+
+  produtos.forEach(prod => {
+    if (prod.id_usuario === id_usuario) {
+      prod.usuario = usuario;
+      prod.turno = turno;
     }
+  });
 
-     usuarios[editandoIndex] = { id_usuario, usuario, turno };
-    console.log(`Enviando dados: id_usuario=${id_usuario}, usuario=${usuario}, turno=${turno}`);
-
-     produtos.forEach(prod => {
-        if (prod.id_usuario === id_usuario) {
-            prod.usuario = usuario;
-            prod.turno = turno;
-        }
-    });
-
-    fetch('atualizarUsuarioss.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `id_usuario=${encodeURIComponent(id_usuario)}&usuario=${encodeURIComponent(usuario)}&turno=${encodeURIComponent(turno)}`
-    })
+  fetch('atualizarUsuarioss.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `id_usuario=${encodeURIComponent(id_usuario)}&usuario=${encodeURIComponent(usuario)}&turno=${encodeURIComponent(turno)}`
+  })
     .then(response => response.json())
     .then(data => {
-        console.log("Resposta do servidor:", data);
-        if (data.success) {
-          
-            console.log("Array de usuários atualizado:", usuarios);
-            mostrarTabelaUsuarioss();
-            mostrarTabelaEntrada();
-            document.getElementById("CardEditUsuarioss").style.display = "none";
-            alert("Usuário atualizado com sucesso!");
-        } else {
-            alert("Erro ao atualizar usuário: " + data.error);
-        }
+      console.log("Resposta do servidor:", data);
+      if (data.success) {
+
+        console.log("Array de usuários atualizado:", usuarios);
+        mostrarTabelaUsuarioss();
+        mostrarTabelaEntrada();
+        document.getElementById("CardEditUsuarioss").style.display = "none";
+        alert("Usuário atualizado com sucesso!");
+      } else {
+        alert("Erro ao atualizar usuário: " + data.error);
+      }
     })
     .catch(error => console.error("Erro ao atualizar usuário:", error));
 }
@@ -800,6 +813,13 @@ function ExcluirUsuarioss(index) {
       alert(data);
       usuarios.splice(index, 1);
       mostrarTabelaUsuarioss();
+       produtos.forEach(prod => {
+            if (prod.id_usuario === usuario.id_usuario) {
+                prod.usuario = null; 
+                prod.turno = null;
+            }
+        });
+      mostrarTabelaEntrada();
     })
     .catch(error => console.error('Erro ao deletar:', error));
 }
