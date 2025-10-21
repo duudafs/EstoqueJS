@@ -23,7 +23,7 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("sss",  $setor, $fileira, $prateleira);
 
 if ($stmt->execute()) {
-    echo "Produto deletado com sucesso!";
+    echo "Localização deletada com sucesso!";
 } else {
     echo "Erro ao deletar: " . $stmt->error;
 }

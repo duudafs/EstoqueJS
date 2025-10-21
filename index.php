@@ -199,8 +199,8 @@ if ($conn->connect_error) {
                                     ?>
                                 </select>
                             </div>
-                            <div class="col-md-4 mt-5">
-                                <label for="data" class="form-label">Data:</label>
+                            <div class="col-md-4 mt-4">
+                                <label for="data" class="form-label">Data de Entrada:</label>
                                 <input type="date" id="data">
                             </div>
 
@@ -313,8 +313,8 @@ if ($conn->connect_error) {
                                     ?>
                                 </select>
                             </div>
-                            <div class="col-md-4 mt-5">
-                                <label for="data" class="form-label">Data:</label>
+                            <div class="col-md-4 mt-4">
+                                <label for="data" class="form-label">Data de Entrada:</label>
                                 <input type="date" id="data-edit">
                             </div>
 
