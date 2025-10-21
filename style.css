@@ -80,20 +80,28 @@ td:nth-child(9) {
 
 .edit-btn {
   margin-right: 2px;
-  margin-left: 8px;
+  margin-left: 3px;
   background-color: rgb(154, 219, 70);
   border-radius: 5px;
-  width: 40px;
-  height: 35px;
+  width: 32px;
+  height: 32px;
   border: none;
 }
 
 .delete-btn {
   border-radius: 5px;
-  width: 40px;
-  height: 35px;
+  width: 32px;
+  height: 32px;
   border: none;
   background-color: rgb(223, 36, 36);
+}
+
+.imprimir-btn{
+  border-radius: 5px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background-color: rgb(34, 114, 233);
 }
 
 .button-container {

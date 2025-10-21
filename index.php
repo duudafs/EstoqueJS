@@ -57,14 +57,14 @@ if ($conn->connect_error) {
                 <tbody id="bodyTableProdutos">
                     <tr>
                         <th>Nome</th>
-                        <th>Lote</th>
+                        <th>LOTE</th>
                         <th>Localização</th>
                         <th>Código</th>
-                        <th>Código Tinta</th>
-                        <th>Qntd.</th>
+                        <th>Cód. Tinta</th>
+                        <th>Quantidade</th>
                         <th>Data</th>
                         <th>Descrição</th>
-                        <th>OBS</th>
+                        <th>Observações</th>
                     </tr>
 
 
@@ -261,7 +261,7 @@ if ($conn->connect_error) {
                     <div class="d-flex justify-content-end">
                         <button class="btn-close" onclick="fecharCard()"></button>
                     </div>
-                    <h5>Atualizar produto:</h5>
+                    <h5>Editar produto:</h5>
                     <form onsubmit="SalvarEdicao(event)">
                         <div class="row mb-2">
                             <div class="col-md-6">
@@ -372,17 +372,15 @@ if ($conn->connect_error) {
             <table class="table">
                 <tbody id="bodyTable">
                     <tr>
-                        <th>Usuário</th>
                         <th>Nome</th>
-                        <th>Lote</th>
+                        <th>LOTE</th>
                         <th>Localização</th>
                         <th>Código</th>
-                        <th>Código Tinta</th>
-                        <th>Qntd.</th>
+                        <th>Cód. Tinta</th>
+                        <th>Quantidade</th>
                         <th>Data</th>
                         <th>Descrição</th>
-                        <th>OBS</th>
-                        <th>Ações</th>
+                        <th>Observações</th>
 
                     </tr>
 
@@ -559,7 +557,7 @@ if ($conn->connect_error) {
             <table class="table">
                 <tbody id="bodyTableUsuarioss">
                     <tr>
-                        <th>id</th>
+                        <th>ID</th>
                         <th>Usuario</th>
                         <th>Turno</th>
                         <th>Ações</th>
@@ -600,7 +598,7 @@ if ($conn->connect_error) {
 
                                 <button class="btn-close" onclick="fecharCardUsuarioss()"></button>
                             </div>
-                            <h5>Atualizar usuarios:</h5>
+                            <h5>Editar Usuarios:</h5>
                             <form onsubmit="SalvarEdicaoUsuarioss(event)">
                                 <div class="row mb-4">
                                     <div class="col-md-8 mt-5">

@@ -124,14 +124,14 @@ function buscarEntrada(termo) {
     <tr>
       <th>Usuario</th>
       <th>Nome</th>
-      <th>Lote</th>
+      <th>LOTE</th>
       <th>Localização</th>
       <th>Código</th>
-      <th>Código Tinta</th>
-      <th>Qntd.</th>
+      <th>Cód. Tinta</th>
+      <th>Quantidade</th>
       <th>Data</th>
       <th>Descrição</th>
-      <th>OBS</th>
+      <th>Observações</th>
       <th>Ações</th>
       
       
@@ -155,8 +155,9 @@ function buscarEntrada(termo) {
         <td>${item.obs}</td>
          
         <td>  
-        <button type="button" method="POST" class="delete-btn" onclick="Excluir"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/trash.png" alt="trash"/></button>
-          <button class="edit-btn" onclick="Editar"><img width="24" height="24" src="https://img.icons8.com/material/24/pencil--v1.png" alt="pencil--v1"/></button> 
+         <button class="imprimir-btn" onclick="Imprimir"><img width="24" height="24" src="https://img.icons8.com/material/24/pencil--v1.png" alt="pencil--v1"/></button> 
+         <button type="button" method="POST" class="delete-btn" onclick="Excluir"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/trash.png" alt="trash"/></button>
+         <button class="edit-btn" onclick="Editar"><img width="24" height="24" src="https://img.icons8.com/material/24/pencil--v1.png" alt="pencil--v1"/></button> 
         </td>
       </tr>
     `;
@@ -189,11 +190,11 @@ function mostrarTabelaProdutos() {
         <th>Lote</th>
         <th>Localização</th>
         <th>Código</th>
-        <th>Código Tinta</th>
-        <th>Qntd.</th>
+        <th>Cód. Tinta</th>
+        <th>Quantidade</th>
         <th>Data</th>
         <th>Descrição</th>
-        <th>OBS</th>
+        <th>Observações</th>
       </tr>
     `;
 
@@ -241,14 +242,14 @@ function mostrarTabelaEntrada() {
       <tr>
         <th>Usuario</th>
         <th>Nome</th>
-        <th>Lote</th>
+        <th>LOTE</th>
         <th>Localização</th>
         <th>Código</th>
-        <th>Código Tinta</th>
-        <th>Qntd.</th>
+        <th>Cód. Tinta</th>
+        <th>Quantidade</th>
         <th>Data</th>
         <th>Descrição</th>
-        <th>OBS</th>
+        <th>Observações</th>
         <th>Ações</th>
         
       </tr>
@@ -268,8 +269,11 @@ function mostrarTabelaEntrada() {
   <td>${item.descric}</td>
   <td>${item.obs}</td>
   <td>
+
+
+          <button class="imprimir-btn" onclick="Imprimir(${inicio + index})"><img width="24" height="24" src="https://img.icons8.com/material/24/pencil--v1.png" alt="pencil--v1"/></button>
            <button type="button" method="POST" class="delete-btn" onclick="Excluir(${inicio + index})"><img width="24" height="24" src="https://img.icons8.com/material-rounded/24/trash.png" alt="trash"/></button>
-          <button class="edit-btn" onclick="Editar(${inicio + index})"><img width="24" height="24" src="https://img.icons8.com/material/24/pencil--v1.png" alt="pencil--v1"/></button>
+           <button class="edit-btn" onclick="Editar(${inicio + index})"><img width="24" height="24" src="https://img.icons8.com/material/24/pencil--v1.png" alt="pencil--v1"/></button>
           </td>
           </tr>
            `;
@@ -636,7 +640,7 @@ function buscarUsuarioss(termo) {
   let htmlFinal = `
   <tr>
     <th>ID</th>
-    <th>Usuario</th>
+    <th>Usuário</th>
     <th>Turno</th>
     <th>Ações</th>
   </tr>
