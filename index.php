@@ -56,14 +56,14 @@ if ($conn->connect_error) {
             <table class="table">
                 <tbody id="bodyTableProdutos">
                     <tr>
-                        <th>Nome</th>
                         <th>LOTE</th>
-                        <th>Localização</th>
-                        <th>Código</th>
                         <th>Cód. Tinta</th>
-                        <th>Quantidade</th>
-                        <th>Data</th>
+                        <th>Código</th>
                         <th>Descrição</th>
+                        <th>Quantidade</th>
+                        <th>Localização</th>
+                        <th>Nome</th>
+                        <th>Data</th>
                         <th>Observações</th>
                     </tr>
 
@@ -328,7 +328,7 @@ if ($conn->connect_error) {
                         <div class="row mb-2">
                             <div class="col-md-6">
                                 <label for="usuario" class="form-label">Usuario:</label>
-                                 <select name="usuario" id="usuario-edit" class="form-select">
+                                <select name="usuario" id="usuario-edit" class="form-select">
                                     <?php
                                     $result = $conn->query("SELECT usuario FROM usuarios");
 
@@ -368,18 +368,95 @@ if ($conn->connect_error) {
                 </div>
             </div>
 
+            <div id="CardImprimir" style="display: none;">
+                <div class="cardPrint-new p-4">
+
+                    <div class="d-flex justify-content-end">
+                        <button class="btn-close" onclick="fecharCardImprimir()"></button>
+                    </div>
+                    <h5 class="card-title text-center">Imprimir Lote</h5>
+
+                    <div class="row mb-2">
+                        <div class="col-md-12 text-start mt-4 mb-4">
+                            <label class="form-label">Selecionar Impressora:</label>
+                            <select id="imprimir" name="printers-list" class="form-select">
+                                <option value="impressora1">impressora 1</option>
+                                <option value="impressora2">impressora 2</option>
+                                <option value="impressora3">impressora 3</option>
+                                <option value="impressora4">impressora 4</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="card-imprimir">
+                        <div style="text-align: center;">
+                        
+                            <h6 style="text-align: center;">LOTE:    <span id="lote-imprimir"></span></h6>
+                        </div>
+
+                        <div style="margin-bottom: 22px; font-size: 30px; font-weight: bolder; text-align: center;">
+                            <span id="nome-imprimir"></span></div>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <label for="codigo" class="form-label"
+                                    style="margin-right: 6px; margin-left: 10px;">Código:</label>
+                                <span id="codigo-imprimir"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="obs" class="form-label"
+                                    style="margin-right: 6px; margin-left: 10px;">OBS:</label>
+                                <span id="obs-imprimir"></span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <label for="data" class="form-label" style="margin-right: 6px; margin-left: 10px;">Data
+                                    de Entrada:</label>
+                                <span id="data-imprimir"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="data" class="form-label"
+                                    style="margin-right: 6px; margin-left: 10px;">Nome:</label>
+                                <span id="usuario-imprimir"></span>
+                            </div>
+                        </div>
+
+                        <table class="table-imprimir">
+                            <tbody id="tbody-imprimir">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Cor</th>
+                                    <th>Cód.</th>
+                                    <th>QTD.</th>
+                                </tr>
+                                <tr>
+                                    <td><span id="codigo2-imprimir"></span></td>
+                                    <td><span id="descric-imprimir"></span></td>
+                                    <td><span id="codtinta-imprimir"></span></td>
+                                    <td><span id="quant-imprimir"></span></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+
             <!-- TABELA DE ENTRADAS -->
             <table class="table">
                 <tbody id="bodyTable">
                     <tr>
-                        <th>Nome</th>
+
                         <th>LOTE</th>
-                        <th>Localização</th>
-                        <th>Código</th>
+                        <th>Nome</th>
                         <th>Cód. Tinta</th>
-                        <th>Quantidade</th>
-                        <th>Data</th>
+                        <th>Código</th>
                         <th>Descrição</th>
+                        <th>Quantidade</th>
+                        <th>Localização</th>
+                        <th>Data</th>
                         <th>Observações</th>
 
                     </tr>
@@ -415,11 +492,7 @@ if ($conn->connect_error) {
 
                 <h3 class="tituloLoc">Localização dos produtos</h3>
             </div>
-
-
             <div class="row">
-
-
 
                 <div class="col">
                     <table class="table">
@@ -545,8 +618,8 @@ if ($conn->connect_error) {
 
 
         <div id="Usuarioss" class="tabcontent">
-            <div class="button-container">
 
+            <div class="button-container">
 
                 <input type="search" id="buscarUsuarioss" placeholder="  search..." class="d-flex ms-auto"
                     style="border-radius: 15px; border:none;  box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
@@ -603,19 +676,19 @@ if ($conn->connect_error) {
                                 <div class="row mb-4">
                                     <div class="col-md-8 mt-5">
                                         <label for="usuario" class="form-label">Usuário:</label>
-                                         <select name="usuario" id="usuario-edit2" class="form-select">
-                                    <?php
-                                    $result = $conn->query("SELECT usuario FROM usuarios");
+                                        <select name="usuario" id="usuario-edit2" class="form-select">
+                                            <?php
+                                            $result = $conn->query("SELECT usuario FROM usuarios");
 
-                                    if ($result && $result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
-                                            echo "<option value='" . htmlspecialchars($row['usuario']) . "'>" . htmlspecialchars($row['usuario']) . "</option>";
-                                        }
-                                    } else {
-                                        echo "<option value=''>Nenhum usuario encontrado</option>";
-                                    }
-                                    ?>
-                                </select>
+                                            if ($result && $result->num_rows > 0) {
+                                                while ($row = $result->fetch_assoc()) {
+                                                    echo "<option value='" . htmlspecialchars($row['usuario']) . "'>" . htmlspecialchars($row['usuario']) . "</option>";
+                                                }
+                                            } else {
+                                                echo "<option value=''>Nenhum usuario encontrado</option>";
+                                            }
+                                            ?>
+                                        </select>
                                     </div>
                                     <div class="col-md-8 mt-2">
                                         <label for="turno" class="form-label">Turno:</label>

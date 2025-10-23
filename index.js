@@ -1,9 +1,9 @@
 
 let paginaAtual = 1;
-const itensPorPagina = 10;
+const itensPorPagina = 20;
 let editandoIndex = null;
 let paginaAtualLocalizacao = 1;
-const itensPorPaginaLocalizacao = 10;
+const itensPorPaginaLocalizacao = 20;
 
 
 
@@ -59,32 +59,33 @@ function buscarProdutos(termo) {
   // Agora atualiza a tabela com os filtrados
   let htmlFinal = `
     <tr>
-     <th>Usuario</th>
+     <th>LOTE</th>
       <th>Nome</th>
-      <th>Lote</th>
-      <th>Localização</th>
+      <th>Cód. Tinta</th>
       <th>Código</th>
-      <th>Código Tinta</th>
-      <th>Qntd.</th>
-      <th>Data</th>
       <th>Descrição</th>
-      <th>OBS</th>
+      <th>Quantidade</th>
+      <th>Usuario</th>
+      <th>Localização</th>
+      <th>Data</th>
+      <th>Observações</th>
+      
     </tr>
   `;
 
   produtosFiltrados.forEach(item => {
     htmlFinal += `
       <tr>
-        <td>${item.usuario}</td>
-        <td>${item.nome}</td>
-        <td>${item.lote}</td>
-        <td>${item.local}</td>
-        <td>${item.codigo}</td>
-        <td>${item.codtinta}</td>
-        <td>${item.quant}</td>
-        <td>${item.data}</td>
-        <td>${item.descric}</td>
-        <td>${item.obs}</td>
+       <td>${item.lote}</td>
+       <td>${item.nome}</td>
+       <td>${item.codtinta}</td>
+       <td>${item.codigo}</td>
+       <td>${item.descric}</td>
+       <td>${item.quant}</td>
+       <td>${item.usuario}</td>
+       <td>${item.local}</td> 
+       <td>${item.data}</td>
+       <td>${item.obs}</td>
       </tr>
     `;
   });
@@ -122,15 +123,16 @@ function buscarEntrada(termo) {
   // Agora atualiza a tabela com os filtrados
   let htmlFinal = `
     <tr>
-      <th>Usuario</th>
-      <th>Nome</th>
+      
       <th>LOTE</th>
-      <th>Localização</th>
-      <th>Código</th>
+      <th>Nome</th>
       <th>Cód. Tinta</th>
-      <th>Quantidade</th>
-      <th>Data</th>
+      <th>Código</th>
       <th>Descrição</th>
+      <th>Quantidade</th>
+      <th>Usuario</th>
+      <th>Localização</th>
+      <th>Data</th>
       <th>Observações</th>
       <th>Ações</th>
       
@@ -143,16 +145,16 @@ function buscarEntrada(termo) {
     htmlFinal += `
       <tr>
 
-        <td>${item.usuario}</td>
-        <td>${item.nome}</td>
-        <td>${item.lote}</td>
-        <td>${item.local}</td>
-        <td>${item.codigo}</td>
-        <td>${item.codtinta}</td>
-        <td>${item.quant}</td>
-        <td>${item.data}</td>
-        <td>${item.descric}</td>
-        <td>${item.obs}</td>
+       <td>${item.lote}</td>
+       <td>${item.nome}</td>
+       <td>${item.codtinta}</td>
+       <td>${item.codigo}</td>
+       <td>${item.descric}</td>
+       <td>${item.quant}</td>
+       <td>${item.usuario}</td>
+       <td>${item.local}</td> 
+       <td>${item.data}</td>
+       <td>${item.obs}</td>
          
         <td>  
          <button class="imprimir-btn" onclick="Imprimir"><img width="24" height="24" src="https://img.icons8.com/material/24/pencil--v1.png" alt="pencil--v1"/></button> 
@@ -185,15 +187,15 @@ function mostrarTabelaProdutos() {
 
   let htmlFinal = `
       <tr>
-        <th>Usuario</th>
+        <th>LOTE</th>
         <th>Nome</th>
-        <th>Lote</th>
-        <th>Localização</th>
-        <th>Código</th>
         <th>Cód. Tinta</th>
-        <th>Quantidade</th>
-        <th>Data</th>
+        <th>Código</th>
         <th>Descrição</th>
+        <th>Quantidade</th>
+        <th>Usuario</th>
+        <th>Localização</th>
+        <th>Data</th>
         <th>Observações</th>
       </tr>
     `;
@@ -201,16 +203,16 @@ function mostrarTabelaProdutos() {
   produtosPaginados.forEach(function (item) {
     htmlFinal += `
             <tr>
-                <td>${item.usuario}</td>
-                <td>${item.nome}</td>
-                <td>${item.lote}</td>
-                <td>${item.local}</td>
-                <td>${item.codigo}</td>
-                <td>${item.codtinta}</td>
-                <td>${item.quant}</td>
-                <td>${item.data}</td>
-                <td>${item.descric}</td>
-                <td>${item.obs}</td>
+       <td>${item.lote}</td>
+       <td>${item.nome}</td>
+       <td>${item.codtinta}</td>
+       <td>${item.codigo}</td>
+       <td>${item.descric}</td>
+       <td>${item.quant}</td>
+       <td>${item.usuario}</td>
+       <td>${item.local}</td> 
+       <td>${item.data}</td>
+       <td>${item.obs}</td>
             </tr>
         `;
   });
@@ -240,15 +242,15 @@ function mostrarTabelaEntrada() {
 
   let htmlFinal = `
       <tr>
-        <th>Usuario</th>
+       <th>LOTE</th>
         <th>Nome</th>
-        <th>LOTE</th>
-        <th>Localização</th>
-        <th>Código</th>
         <th>Cód. Tinta</th>
-        <th>Quantidade</th>
-        <th>Data</th>
+        <th>Código</th>
         <th>Descrição</th>
+        <th>Quantidade</th>
+        <th>Usuario</th>
+        <th>Localização</th>
+        <th>Data</th>
         <th>Observações</th>
         <th>Ações</th>
         
@@ -258,16 +260,16 @@ function mostrarTabelaEntrada() {
 
     htmlFinal += `
       <tr>
-    <td>${item.usuario}</td>
-    <td>${item.nome}</td>
-  <td>${item.lote}</td>
-  <td>${item.local}</td>
-  <td>${item.codigo}</td>
-  <td>${item.codtinta}</td>
-  <td>${item.quant}</td>
- <td>${item.data}</td> 
-  <td>${item.descric}</td>
-  <td>${item.obs}</td>
+      <td>${item.lote}</td>
+       <td>${item.nome}</td>
+       <td>${item.codtinta}</td>
+       <td>${item.codigo}</td>
+       <td>${item.descric}</td>
+       <td>${item.quant}</td>
+       <td>${item.usuario}</td>
+       <td>${item.local}</td> 
+       <td>${item.data}</td>
+       <td>${item.obs}</td>
   <td>
 
 
@@ -487,7 +489,7 @@ function Salvar(event) {
         const id_usuario = data.usuario.id;
 
         // Atualizar o array `usuarios` no frontend
-        
+
         alert("Produto salvo com sucesso!");
         console.log("NOVO PRODUTO SALVO:", usuarios);
       }
@@ -688,7 +690,7 @@ function mostrarTabelaUsuarioss() {
 
   let htmlFinal = `
     <tr>
-      <th>id</th>
+      <th>ID</th>
       <th>Usuário</th>
       <th>Turno</th>
       <th>Ações</th>
@@ -747,6 +749,10 @@ function fecharCard() {
 
 }
 
+
+function fecharCardImprimir() {
+  document.getElementById("CardImprimir").style.display = "none";
+}
 
 
 
@@ -834,13 +840,23 @@ function ExcluirUsuarioss(index) {
 }
 
 
+function Imprimir(index) {
 
+  let item = produtos[index];
+  console.log("Imprimindo produto:", item);
 
-
-
-
-
-
+  document.getElementById("nome-imprimir").innerText = item.nome;
+   document.getElementById("usuario-imprimir").innerText = item.usuario;
+  document.getElementById("lote-imprimir").innerText = item.lote;
+  document.getElementById("codigo-imprimir").innerText = item.codigo;
+   document.getElementById("codigo2-imprimir").innerText = item.codigo;
+  document.getElementById("codtinta-imprimir").innerText = item.codtinta;
+  document.getElementById("quant-imprimir").innerText = item.quant;
+  document.getElementById("data-imprimir").innerText = item.data;
+  document.getElementById("obs-imprimir").innerText = item.obs;
+document.getElementById("descric-imprimir").innerText = item.descric;
+  document.getElementById("CardImprimir").style.display = "block";
+}
 
 
 

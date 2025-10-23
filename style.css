@@ -45,10 +45,31 @@ body {
 }
 
 .card {
-  width: 1200px;
-  height: 790px;
+  width: 100%;
+  height: 100%;
 
 
+}
+
+
+.table-imprimir{
+  width: 97%;
+  justify-self: center;
+  height: auto;
+  border-collapse: collapse;
+  margin-bottom: 8px;
+}
+
+#tbody-imprimir td{
+   border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px
+}
+
+#tbody-imprimir th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
 }
 
 .table {
@@ -58,20 +79,19 @@ body {
 
 }
 
-tbody tr:nth-child(even) {
+.table tbody tr:nth-child(even) {
   background-color: #dddddd;
 }
 
 
-th,
-td {
+.table tbody th,td {
   text-align: center;
   padding: 40px 50px;
 
 }
 
-td:nth-child(8),
-td:nth-child(9) {
+td:nth-child(9),
+td:nth-child(10) {
   max-width: 90px;
   white-space: normal;
   word-wrap: break-word;
@@ -81,6 +101,7 @@ td:nth-child(9) {
 .edit-btn {
   margin-right: 2px;
   margin-left: 3px;
+  margin-top: 3px;
   background-color: rgb(154, 219, 70);
   border-radius: 5px;
   width: 32px;
@@ -89,14 +110,17 @@ td:nth-child(9) {
 }
 
 .delete-btn {
+  margin-left: 2px;
   border-radius: 5px;
+  margin-top: 3px;
   width: 32px;
   height: 32px;
   border: none;
   background-color: rgb(223, 36, 36);
 }
 
-.imprimir-btn{
+.imprimir-btn {
+  margin-top: 3px;
   border-radius: 5px;
   width: 32px;
   height: 32px;
@@ -160,25 +184,26 @@ td:nth-child(9) {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(184, 174, 174, 0.5); /* sem repetir width */
-  display: flex;   /* usar flex para centralizar */
+  background-color: rgba(184, 174, 174, 0.5);
+  display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  display: none;   /* começar escondido */
+  display: none;
+
 }
 
-/* Card interno */
+
 #CardEditUsuarioss .cardUser-new {
-  background-color: #fff; /* cor do card */
-  width: 600px;           /* largura desejada */
+  background-color: #fff;
+  width: 600px;
   height: 400px;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   text-align: center;
-  
-} 
+
+}
 
 
 
@@ -196,19 +221,13 @@ td:nth-child(9) {
 
 input[type=text] {
   font-size: 0.875rem;
-  /* text-sm */
   width: 100%;
-  /* w-full */
   padding: 0.5rem 1rem;
   /* py-2 px-4 */
   border: 1px solid #d1d5db;
-  /* border-gray-300 */
   border-radius: 0.5rem;
-  /* rounded-lg */
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  /* shadow-sm */
   background-color: #f3f4f6;
-  /* bg-gray-100 */
   transition: all 0.3s ease-in-out;
 }
 
@@ -222,29 +241,20 @@ input[type=number] {
   border: 1px solid #d1d5db;
   /* border-gray-300 */
   border-radius: 0.5rem;
-  /* rounded-lg */
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  /* shadow-sm */
   background-color: #f3f4f6;
-  /* bg-gray-100 */
   transition: all 0.3s ease-in-out;
 }
 
 input:focus {
   outline: 2px solid #93c5fd;
-  /* focus:outline-blue-300 */
   transform: translateY(-0.25rem);
-  /* focus:-translate-y-1 */
-
 }
 
 input:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* hover:shadow-lg */
   border-color: #93c5fd;
-  /* hover:border-blue-300 */
 }
-
 
 .save {
   margin-top: 100px;
@@ -348,10 +358,15 @@ input:hover {
 }
 
 .header-localizacao {
-  display: flex;            /* coloca os elementos na mesma linha */
-  align-items: center;      /* centraliza verticalmente */
-  justify-content: center;; /* título à esquerda, botão à direita */
-  margin-bottom: 10px;      /* espaçamento abaixo */
+  display: flex;
+  /* coloca os elementos na mesma linha */
+  align-items: center;
+  /* centraliza verticalmente */
+  justify-content: center;
+  
+  /* título à esquerda, botão à direita */
+  margin-bottom: 10px;
+  /* espaçamento abaixo */
 }
 
 .tituloLoc {
@@ -367,9 +382,9 @@ input:hover {
   border: none;
   background-color: rgb(133, 192, 56);
   color: rgb(0, 0, 0);
-             /* tira do fluxo normal */
- 
-  
+  /* tira do fluxo normal */
+
+
 }
 
 .input-loc {
@@ -380,13 +395,6 @@ input:hover {
 
 
 
-
-.tituloUser {
-  font-weight: bold;
-  text-align: center;
-  margin-top: 20px;
-
-}
 
 #CardUser {
   margin-top: 70px;
@@ -412,15 +420,19 @@ input:hover {
 
 
 
-.input-container, 
+.input-container,
 .input-container input,
 .inputIcon {
   box-sizing: border-box;
 }
 
 .input-container input,
-#senha, #senha_login, #usuario_id, #usuario_id_login{
-  padding-left: 35px; /* espaço pro ícone */
+#senha,
+#senha_login,
+#usuario_id,
+#usuario_id_login {
+  padding-left: 35px;
+  /* espaço pro ícone */
 
   border: none;
 }
@@ -430,12 +442,14 @@ input:hover {
   left: 10px;
   top: 50%;
   transform: translateY(-50%);
-  pointer-events: none; /* ícone não atrapalha clique */
+  pointer-events: none;
+  /* ícone não atrapalha clique */
 }
 
 .form-control {
-  padding-left: 35px; /* espaço pro ícone */
-  font-weight:bold;
+  padding-left: 35px;
+  /* espaço pro ícone */
+  font-weight: bold;
   border: none;
   border-radius: 8px;
   font-size: 14px;
@@ -445,12 +459,14 @@ input:hover {
 }
 
 .form-control:focus {
-  border-color: #0d6efd; /* borda azul ao focar */
-  box-shadow: 0 4px 10px rgba(13,110,253,0.25); /* sombra azul ao focar */
+  border-color: #0d6efd;
+  /* borda azul ao focar */
+  box-shadow: 0 4px 10px rgba(13, 110, 253, 0.25);
+  /* sombra azul ao focar */
   outline: none;
 }
 
-.form-control::placeholder{
+.form-control::placeholder {
   color: #a8aaac;
 }
 
@@ -473,24 +489,68 @@ input:hover {
   box-shadow: 0 5px 20px rgba(88, 188, 130, 0.3);
 }
 
-.btn-novo-user{
+.btn-novo-user {
   background-color: transparent;
-  border:none;
+  border: none;
   font-weight: bold;
   color: #58bc82;
-  
- 
+
+
 }
-.semConta{
+
+.semConta {
   color: #8e9092;
   text-align: center;
 }
 
-.cadastroTitulo{
+.cadastroTitulo {
   font-weight: bold;
   padding-top: 40px;
   color: #8e9092;
 }
 
 
+#CardImprimir {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(184, 174, 183, 0.5);
+  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+ 
+  
+}
 
+#CardImprimir .cardPrint-new {
+
+  background-color: #fff;
+  width: 760px;
+  height: 695px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  text-align: start;
+ position: relative;
+justify-self: center;
+margin-top: 100px;
+}
+
+.container-print {
+  width: 150px;
+  height: 40px;
+  overflow: hidden;
+  display: flex;
+  font-size: medium;
+  font-weight: 200;
+
+}
+
+.card-imprimir{
+  width: 100%;
+  border: 3px solid #000;
+}
