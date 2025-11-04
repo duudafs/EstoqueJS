@@ -481,8 +481,6 @@ function Salvar(event) {
   })
 
 
-
-
     .then(response => response.json())
     .then(data => {
       if (data.usuario && data.usuario.id) {

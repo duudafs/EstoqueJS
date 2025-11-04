@@ -51,23 +51,20 @@ if ($conn->connect_error) {
                     style="border-radius: 15px; border:none;  box-shadow: 0 2px 4px rgba(0,0,0,0.2); margin-top: 8px; margin-bottom: 8px;">
             </div>
 
-
-
             <table class="table">
                 <tbody id="bodyTableProdutos">
                     <tr>
                         <th>LOTE</th>
+                        <th>Nome</th>
                         <th>Cód. Tinta</th>
                         <th>Código</th>
                         <th>Descrição</th>
                         <th>Quantidade</th>
+                        <th>Usuário</th>
                         <th>Localização</th>
-                        <th>Nome</th>
                         <th>Data</th>
                         <th>Observações</th>
                     </tr>
-
-
 
                     <?php
                     $produtos = [];
@@ -110,10 +107,6 @@ if ($conn->connect_error) {
                         echo "<tr><td colspan='11'>Nenhum produto encontrado.</td></tr>";
                     }
                     ?>
-
-
-
-
 
                 </tbody>
             </table>
@@ -378,7 +371,7 @@ if ($conn->connect_error) {
 
                     <div class="row mb-2">
                         <div class="col-md-12 text-start mt-4 mb-4">
-                            <label class="form-label">Selecionar Impressora:</label>
+                            <label for="imprimir" class="form-label">Selecionar Impressora:</label>
                             <select id="imprimir" name="printers-list" class="form-select">
                                 <option value="impressora1">impressora 1</option>
                                 <option value="impressora2">impressora 2</option>
@@ -390,12 +383,13 @@ if ($conn->connect_error) {
                     </div>
                     <div class="card-imprimir">
                         <div style="text-align: center;">
-                        
-                            <h6 style="text-align: center;">LOTE:    <span id="lote-imprimir"></span></h6>
+
+                            <h6 style="text-align: center;">LOTE: <span id="lote-imprimir"></span></h6>
                         </div>
 
                         <div style="margin-bottom: 22px; font-size: 30px; font-weight: bolder; text-align: center;">
-                            <span id="nome-imprimir"></span></div>
+                            <span id="nome-imprimir"></span>
+                        </div>
                         <div class="row mb-2">
                             <div class="col-md-6">
                                 <label for="codigo" class="form-label"

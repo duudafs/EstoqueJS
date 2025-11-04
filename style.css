@@ -2,16 +2,12 @@ body {
   font-family: Arial;
 }
 
-
 .tab {
   display: flex;
   justify-content: left;
   gap: 10px;
   margin: 20px 0;
-
-
 }
-
 
 .tab button {
   margin-right: 12px;
@@ -27,7 +23,6 @@ body {
   background-color: #ccc;
 }
 
-/* Change background color of buttons on hover */
 .tab button:hover {
   background-color: #0076fd;
 }
@@ -36,7 +31,6 @@ body {
   background-color: #0076fd;
 }
 
-/* Style the tab content */
 .tabcontent {
   display: none;
   padding: 6px 12px;
@@ -47,10 +41,7 @@ body {
 .card {
   width: 100%;
   height: 100%;
-
-
 }
-
 
 .table-imprimir{
   width: 97%;
@@ -76,18 +67,18 @@ body {
   width: 100%;
   height: 420px;
   border-collapse: collapse;
-
 }
 
 .table tbody tr:nth-child(even) {
-  background-color: #dddddd;
+  background-color: #918585 !important;
 }
-
+.table tbody tr:nth-child(odd) {
+  background-color: #ffffff !important;
+}
 
 .table tbody th,td {
   text-align: center;
   padding: 40px 50px;
-
 }
 
 td:nth-child(9),
@@ -95,7 +86,6 @@ td:nth-child(10) {
   max-width: 90px;
   white-space: normal;
   word-wrap: break-word;
-
 }
 
 .edit-btn {
@@ -176,8 +166,6 @@ td:nth-child(10) {
   z-index: 1000;
 }
 
-
-
 #CardEditUsuarioss {
   position: fixed;
   top: 0;
@@ -190,7 +178,6 @@ td:nth-child(10) {
   justify-content: center;
   z-index: 1000;
   display: none;
-
 }
 
 
@@ -205,8 +192,6 @@ td:nth-child(10) {
 
 }
 
-
-
 .card-new {
   background: white;
   padding: 30px;
@@ -216,8 +201,6 @@ td:nth-child(10) {
   text-align: center;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
-
-
 
 input[type=text] {
   font-size: 0.875rem;
@@ -233,13 +216,9 @@ input[type=text] {
 
 input[type=number] {
   font-size: 0.875rem;
-  /* text-sm */
   width: 100%;
-  /* w-full */
   padding: 0.5rem 1rem;
-  /* py-2 px-4 */
   border: 1px solid #d1d5db;
-  /* border-gray-300 */
   border-radius: 0.5rem;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   background-color: #f3f4f6;
@@ -262,7 +241,6 @@ input:hover {
   border-radius: 5px;
   background-color: rgb(118, 201, 64);
   border: none;
-
 }
 
 #busca {
